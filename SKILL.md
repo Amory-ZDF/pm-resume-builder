@@ -1,13 +1,13 @@
 ---
 name: pm-resume-builder
-description: Create, rewrite, tailor, and export concise one-page Chinese product manager resumes in Word DOCX format. Use when the user asks for a product manager resume, Chinese resume, internship resume, campus recruitment resume, career-switch PM resume, JD-targeted resume customization, resume bullet rewriting, or a one-page Internet-company-style resume deliverable.
+description: Create, rewrite, tailor, and export concise one-page Chinese product manager resumes in Word DOCX format from raw text, Markdown, PDF, or Word DOCX inputs. Use when the user asks for a product manager resume, Chinese resume, internship resume, campus recruitment resume, career-switch PM resume, existing resume rewrite from .docx/.pdf, JD-targeted resume customization, resume bullet rewriting, or a one-page Internet-company-style resume deliverable.
 ---
 
 # PM Resume Builder
 
 ## Outcome
 
-Create a **Chinese, concise Internet-company-style product manager resume** and deliver a `.docx` file. It is acceptable to draft Markdown internally, but the final user deliverable must be Word DOCX unless the user explicitly asks otherwise.
+Create a **Chinese, concise Internet-company-style product manager resume** and deliver a `.docx` file. Accept raw text, Markdown, PDF, or Word DOCX as candidate resume/JD inputs. It is acceptable to draft Markdown internally, but the final user deliverable must be Word DOCX unless the user explicitly asks otherwise.
 
 Hard constraints:
 - Keep the resume to exactly **1 page** whenever enough content exists.
@@ -23,7 +23,10 @@ Hard constraints:
    - JD tailoring: user provides an existing resume and target JD.
    - Rewrite/compress: user wants better bullets or one-page DOCX output.
 
-2. **Collect only missing essentials**
+2. **Ingest provided files or text**
+   If the user provides `.docx`, `.pdf`, `.md`, or `.txt` resume/JD inputs, read `references/input-handling.md` and use `scripts/extract_resume_input.py` when file text extraction is needed. Treat extracted text as private user data; do not store it in the skill, README, examples, or commits.
+
+3. **Collect only missing essentials**
    Ask concise follow-up questions only when required facts are missing. Required essentials:
    - Target stage: internship / campus recruitment / junior full-time / experienced hire / career switch.
    - Target direction: C-end, B-end, AI product, data product, growth, strategy, commercialization, platform/backend, or general PM.
@@ -31,7 +34,7 @@ Hard constraints:
    - Experience facts: organization, role, date, project context, actions, outputs, metrics if available.
    - JD text if tailoring to a specific job.
 
-3. **Structure the resume**
+4. **Structure the resume**
    Use these sections, omitting only truly empty sections after telling the user:
    - 基本信息
    - 教育背景
@@ -46,22 +49,22 @@ Hard constraints:
    - Full-time/social candidates: 基本信息 → 教育背景 → 工作经历 → 项目经历 → 实习经历（仅保留强相关）→ 校园经历（通常省略）→ 技能与其他.
    - Within each section, put the most relevant and strongest experience first.
 
-4. **Use the reference structure standard**
+5. **Use the reference structure standard**
    Read `references/reference-structure-standard.md` when creating or reformatting a full resume. Follow its generic one-page Chinese PM structure without copying any private sample content.
 
-5. **Write content with PM bullet patterns**
+6. **Write content with PM bullet patterns**
    Read `references/writing-patterns.md` before drafting bullets. For every work/internship/project entry:
    - Start with one concise project/context sentence: business background + target problem + candidate's role + outcome.
    - Then write bullets using: action + method + deliverable + result.
    - If one company/internship contains unrelated projects, split them under project subtitles.
 
-6. **Apply honesty guardrails**
+7. **Apply honesty guardrails**
    Read `references/honesty-guardrails.md` whenever polishing weak, vague, internship, or metric-light experience. Escalate wording only when evidence supports it. Mark assumptions for user confirmation instead of hiding them.
 
-7. **Tailor to JD if provided**
+8. **Tailor to JD if provided**
    Read `references/jd-tailoring.md`. Extract JD keywords, map them to real evidence, then reorder and rewrite content. Never add unsupported domain experience just because the JD asks for it.
 
-8. **Fit to one page**
+9. **Fit to one page**
    Read `references/one-page-docx-rules.md`. Use content budgets before creating DOCX, then verify after export. If over one page, compress in this order:
    1. Remove weak/unrelated bullets.
    2. Shorten bullets to one line when possible.
@@ -69,18 +72,20 @@ Hard constraints:
    4. Reduce lower-priority sections.
    5. Use tighter DOCX layout settings, but do not go below readable sizes.
 
-9. **Generate and verify DOCX**
+10. **Generate and verify DOCX**
    - Prefer using `scripts/build_pm_resume_docx.py` with structured JSON.
    - Use `scripts/check_docx_layout.py` or the Documents skill render workflow to verify page count and bottom whitespace.
    - Iterate until the latest checked version passes: one page, no clipping/overlap, bottom blank area within the 3-line rule when content quantity allows.
 
 ## Resource routing
 
+- `references/input-handling.md`: PDF/Word/Markdown/text input extraction workflow and privacy rules.
 - `references/reference-structure-standard.md`: generic one-page Chinese PM resume structure and layout standard derived from a private sample, with no personal content.
 - `references/writing-patterns.md`: PM resume section and bullet writing formulas.
 - `references/honesty-guardrails.md`: reasonable packaging, metrics, internship scope, and red-flag wording.
 - `references/jd-tailoring.md`: JD keyword extraction and tailoring workflow.
 - `references/one-page-docx-rules.md`: one-page budgets, compression order, and Word layout constraints.
+- `scripts/extract_resume_input.py`: extract plain text from `.docx`, `.pdf`, `.md`, or `.txt` resume/JD inputs.
 - `scripts/build_pm_resume_docx.py`: build a compact Chinese PM resume DOCX from JSON.
 - `scripts/check_docx_layout.py`: convert DOCX to PDF and check page count plus bottom whitespace.
 
