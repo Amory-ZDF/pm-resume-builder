@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM Resume Builder"
+  short_description: "Create one-page Chinese PM resumes"
+  default_prompt: "Use $pm-resume-builder to create a one-page Chinese product manager resume in DOCX format."
