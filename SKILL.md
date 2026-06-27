@@ -1,13 +1,13 @@
 ---
 name: pm-resume-builder
-description: Create, rewrite, tailor, and export concise one-page Chinese product manager resumes in Word DOCX format from raw text, Markdown, PDF, or Word DOCX inputs. Use when the user asks for a product manager resume, Chinese resume, internship resume, campus recruitment resume, career-switch PM resume, existing resume rewrite from .docx/.pdf, JD-targeted resume customization, resume bullet rewriting, or a one-page Internet-company-style resume deliverable.
+description: Create, rewrite, tailor, and export concise one-page Chinese product manager resumes in Word DOCX format from raw text, Markdown, TXT, PDF, or Word DOCX resume inputs, and from text/PDF/image JD inputs. Use when the user asks for a product manager resume, Chinese resume, internship resume, campus recruitment resume, career-switch PM resume, existing resume rewrite from .docx/.pdf, JD-targeted resume customization, resume bullet rewriting, or a one-page Internet-company-style resume deliverable.
 ---
 
 # PM Resume Builder
 
 ## Outcome
 
-Create a **Chinese, concise Internet-company-style product manager resume** and deliver a `.docx` file. Accept raw text, Markdown, PDF, or Word DOCX as candidate resume/JD inputs. It is acceptable to draft Markdown internally, but the final user deliverable must be Word DOCX unless the user explicitly asks otherwise.
+Create a **Chinese, concise Internet-company-style product manager resume** and deliver a `.docx` file. Accept raw text, Markdown, TXT, PDF, or Word DOCX as candidate resume inputs; accept pasted text, PDF, or image files as target JD inputs. It is acceptable to draft Markdown internally, but the final user deliverable must be Word DOCX unless the user explicitly asks otherwise.
 
 Hard constraints:
 - Keep the resume to exactly **1 page** whenever enough content exists.
@@ -24,7 +24,7 @@ Hard constraints:
    - Rewrite/compress: user wants better bullets or one-page DOCX output.
 
 2. **Ingest provided files or text**
-   If the user provides `.docx`, `.pdf`, `.md`, or `.txt` resume/JD inputs, read `references/input-handling.md` and use `scripts/extract_resume_input.py` when file text extraction is needed. Treat extracted text as private user data; do not store it in the skill, README, examples, or commits.
+   If the user provides `.docx`, `.pdf`, `.md`, or `.txt` resume inputs, or text/PDF/image JD inputs, read `references/input-handling.md`. Use `scripts/extract_resume_input.py` for supported text-based file extraction; use available OCR/vision tools for JD images, or ask the user to paste the JD text if OCR is unavailable. Treat extracted text as private user data; do not store it in the skill, README, examples, or commits.
 
 3. **Collect only missing essentials**
    Ask concise follow-up questions only when required facts are missing. Required essentials:
