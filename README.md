@@ -1,87 +1,131 @@
-# PM Resume Builder Skill
+# PM Resume Builder
 
-A portable agent skill for creating, rewriting, tailoring, and exporting concise one-page Chinese product manager resumes in Word `.docx` format.
+一个用于帮助 AI Agent 编写、改写和定制中文产品经理简历的 Skill。
 
-The skill is designed for Codex, Claude, and other file-capable AI agents. It supports raw text, Markdown, Word `.docx`, and PDF resume/JD inputs.
+它适合在 Codex、Claude 或其他支持读取文件的 Agent 中使用，目标是生成一份**简洁、互联网大厂风格、一页以内的 Word 简历**。
 
-## What it does
+## 能解决什么问题
 
-- Creates Chinese product manager resumes from raw user information.
-- Rewrites existing resumes into a concise Internet-company style.
-- Tailors a resume to a target JD.
-- Supports internship, campus recruitment, junior PM, career-switch, and full-time PM scenarios.
-- Applies honesty guardrails for reasonable resume polishing without fabricating experience.
-- Generates a final Word `.docx` resume and verifies one-page layout when rendering tools are available.
+### 1. 不会写产品经理简历
 
-## Install for Codex
+用户可以提供零散信息，例如教育背景、实习经历、项目经历、校园经历、技能等。Agent 会帮助整理成产品经理简历结构，并改写成更专业的表达。
 
-Copy this folder into your Codex skills directory:
+### 2. 根据岗位 JD 定制简历
+
+用户可以提供已有简历和目标岗位 JD。Agent 会提取岗位关键词，筛选最相关经历，调整内容顺序，并改写 bullet point，让简历更贴合目标岗位。
+
+### 3. 把已有简历改成一页 Word 版本
+
+支持输入已有简历文件，重新整理结构、压缩内容，并输出 `.docx` 简历。
+
+## 支持的输入
+
+- 用户直接粘贴的文字
+- Markdown / TXT 文件
+- Word 简历：`.docx`
+- PDF 简历：`.pdf`
+- Word / PDF 格式的岗位 JD
+
+## 输出结果
+
+默认输出：
+
+- 中文简历
+- 产品经理方向
+- 简洁互联网风格
+- Word `.docx` 文件
+- 尽量控制在一页以内
+
+## 如何在 Codex 中使用
+
+把本项目放到 Codex Skills 目录：
 
 ```bash
 mkdir -p ~/.codex/skills
 cp -R pm-resume-builder ~/.codex/skills/
 ```
 
-Then start a new Codex chat and invoke:
+然后在 Codex 中这样调用：
 
 ```text
-Use $pm-resume-builder to create a one-page Chinese product manager resume from candidate_resume.docx.
+Use $pm-resume-builder 帮我根据这份简历生成一页中文产品经理简历，输出 Word 文件。
 ```
 
-## Use with Claude or another Agent
-
-If the agent supports project files, upload or attach this whole folder and say:
+如果有目标岗位 JD：
 
 ```text
-Use the instructions in SKILL.md from the pm-resume-builder folder. Read only the referenced files needed for the task. Create a one-page Chinese product manager resume in DOCX format from candidate_resume.docx and tailor it to target_jd.pdf.
+Use $pm-resume-builder 根据我的简历和这个岗位 JD，定制一份一页以内的中文产品经理简历，输出 Word 文件。
 ```
 
-If the agent does not understand Codex Skill metadata, treat `SKILL.md` as the main system/task guide and use the files under `references/` and `scripts/` as supporting resources.
+## 如何在 Claude 或其他 Agent 中使用
 
-## Supported input files
+把整个 `pm-resume-builder` 文件夹上传给 Agent，然后这样说：
 
-- Existing resume: `.docx`, `.pdf`, `.md`, `.txt`
-- Target JD: `.docx`, `.pdf`, `.md`, `.txt`
-- Raw pasted candidate information
+```text
+请使用 pm-resume-builder 文件夹中的 SKILL.md 作为操作指南，帮我根据简历和目标 JD 生成一页中文产品经理简历，最终输出 Word 文件。
+```
 
-Use the extractor script for file inputs:
+如果 Agent 不认识 Skill 格式，也可以直接说明：
+
+```text
+请先阅读 SKILL.md，再根据 references 里的规则处理简历。不要编造经历，最终输出一页以内的 .docx 简历。
+```
+
+## 典型使用方式
+
+### 从零写简历
+
+```text
+Use $pm-resume-builder 我是应届生，想投产品经理实习。下面是我的教育背景、项目经历和技能，请帮我写一份一页中文简历，并输出 Word。
+```
+
+### 修改已有简历
+
+```text
+Use $pm-resume-builder 这是我的简历 PDF，请帮我改成更适合互联网产品经理岗位的一页 Word 简历。
+```
+
+### 针对 JD 定制简历
+
+```text
+Use $pm-resume-builder 这是我的简历和目标岗位 JD，请帮我定制简历，突出和岗位最相关的项目与能力。
+```
+
+## 文件输入处理
+
+如果 Agent 需要先抽取 Word 或 PDF 内容，可以使用：
 
 ```bash
 python scripts/extract_resume_input.py candidate_resume.docx --out work/extracted_resume.txt
 python scripts/extract_resume_input.py target_jd.pdf --out work/extracted_jd.txt
 ```
 
-The extracted text is private user data. Do not commit it to this repo.
+然后再根据抽取结果生成结构化简历内容。
 
-## Generate a DOCX resume
+## 生成 Word 简历
 
-The recommended agent flow is:
-
-1. Extract or read candidate information.
-2. Ask only for missing essentials.
-3. Convert the information into the structured JSON format shown in `assets/resume_schema_example.json`.
-4. Build the Word file:
+Agent 可以先把简历整理成 JSON，再生成 Word：
 
 ```bash
 python scripts/build_pm_resume_docx.py work/resume.json output_resume.docx --compactness tight
 ```
 
-5. Check layout when LibreOffice is available:
+如需检查是否一页以内：
 
 ```bash
 python scripts/check_docx_layout.py output_resume.docx
 ```
 
-If the check reports more than one page or excessive bottom whitespace, compress content according to `references/one-page-docx-rules.md` and regenerate.
+## 简历改写原则
 
-## Privacy and honesty rules
+- 可以优化表达，但不要编造经历。
+- 可以合理包装数据，但必须在用户提供事实的基础上。
+- 实习经历不要写得像资深负责人。
+- 实习生更适合使用“参与”“协助”“支持”“负责某个模块”等表达。
+- 不要凭空添加公司、学校、项目、奖项、工具、指标。
+- 最终简历应简洁、可信、好读。
 
-- Do not invent companies, schools, dates, projects, tools, awards, or exact metrics.
-- For internships, prefer `参与`, `协助`, `支持`, and `负责模块`; avoid unsupported claims like `独立负责` or `主导`.
-- Reasonable metric polishing is allowed only when grounded in user-provided facts.
-- Do not commit real resumes, extracted text, generated private drafts, or personal information.
-
-## Folder map
+## 项目结构
 
 ```text
 pm-resume-builder/
