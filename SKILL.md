@@ -38,26 +38,30 @@ Hard constraints:
    - 工作经历
    - 实习经历
    - 项目经历
+   - 校园经历（仅当能证明 PM 能力）
    - 技能与其他
 
    Ordering rules:
-   - Internship/campus/career-switch candidates: 基本信息 → 教育背景 → 实习经历 → 项目经历 → 工作经历（如有）→ 技能与其他.
-   - Full-time/social candidates: 基本信息 → 教育背景 → 工作经历 → 项目经历 → 实习经历（仅保留强相关）→ 技能与其他.
+   - Internship/campus/career-switch candidates: 基本信息 → 教育背景 → 实习经历 → 项目经历 → 校园经历（强相关才保留）→ 工作经历（如有）→ 技能与其他.
+   - Full-time/social candidates: 基本信息 → 教育背景 → 工作经历 → 项目经历 → 实习经历（仅保留强相关）→ 校园经历（通常省略）→ 技能与其他.
    - Within each section, put the most relevant and strongest experience first.
 
-4. **Write content with PM bullet patterns**
+4. **Use the reference structure standard**
+   Read `references/reference-structure-standard.md` when creating or reformatting a full resume. Follow its generic one-page Chinese PM structure without copying any private sample content.
+
+5. **Write content with PM bullet patterns**
    Read `references/writing-patterns.md` before drafting bullets. For every work/internship/project entry:
    - Start with one concise project/context sentence: business background + target problem + candidate's role + outcome.
    - Then write bullets using: action + method + deliverable + result.
    - If one company/internship contains unrelated projects, split them under project subtitles.
 
-5. **Apply honesty guardrails**
+6. **Apply honesty guardrails**
    Read `references/honesty-guardrails.md` whenever polishing weak, vague, internship, or metric-light experience. Escalate wording only when evidence supports it. Mark assumptions for user confirmation instead of hiding them.
 
-6. **Tailor to JD if provided**
+7. **Tailor to JD if provided**
    Read `references/jd-tailoring.md`. Extract JD keywords, map them to real evidence, then reorder and rewrite content. Never add unsupported domain experience just because the JD asks for it.
 
-7. **Fit to one page**
+8. **Fit to one page**
    Read `references/one-page-docx-rules.md`. Use content budgets before creating DOCX, then verify after export. If over one page, compress in this order:
    1. Remove weak/unrelated bullets.
    2. Shorten bullets to one line when possible.
@@ -65,13 +69,14 @@ Hard constraints:
    4. Reduce lower-priority sections.
    5. Use tighter DOCX layout settings, but do not go below readable sizes.
 
-8. **Generate and verify DOCX**
+9. **Generate and verify DOCX**
    - Prefer using `scripts/build_pm_resume_docx.py` with structured JSON.
    - Use `scripts/check_docx_layout.py` or the Documents skill render workflow to verify page count and bottom whitespace.
    - Iterate until the latest checked version passes: one page, no clipping/overlap, bottom blank area within the 3-line rule when content quantity allows.
 
 ## Resource routing
 
+- `references/reference-structure-standard.md`: generic one-page Chinese PM resume structure and layout standard derived from a private sample, with no personal content.
 - `references/writing-patterns.md`: PM resume section and bullet writing formulas.
 - `references/honesty-guardrails.md`: reasonable packaging, metrics, internship scope, and red-flag wording.
 - `references/jd-tailoring.md`: JD keyword extraction and tailoring workflow.

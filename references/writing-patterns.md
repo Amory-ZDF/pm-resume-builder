@@ -16,7 +16,7 @@ Optional details: relevant courses, GPA/rank, awards, exchange experience. Keep 
 
 ## Experience entry structure
 
-Use this shape for 工作经历、实习经历、项目经历:
+Use this shape for 工作经历、实习经历、项目经历、校园经历:
 
 1. Entry heading: `公司/组织｜岗位/项目角色｜时间`
 2. One-sentence context: `围绕[业务/用户/场景]，为解决[问题/目标]，参与/负责[模块]，产出[结果/沉淀]。`
@@ -40,7 +40,7 @@ If projects show different PM capabilities, split under subtitles:
 `项目二：后台数据看板`
 - bullets
 
-Use at most 2 project subtitles per company unless the user has senior experience and enough page budget.
+Use at most 2 project subtitles per company unless the user has senior experience and enough page budget. For campus experiences, usually keep only one bullet unless it is a product-like project with real deliverables.
 
 ## Product manager capability vocabulary
 

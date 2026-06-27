@@ -4,12 +4,12 @@
 
 Use a clean Internet-company resume style:
 - A4 portrait.
-- Margins around 0.45-0.55 inch.
+- Margins around 0.5 inch; tighten only when necessary.
 - Chinese font: Microsoft YaHei / PingFang SC / SimSun fallback.
 - Name: 16-18 pt bold.
 - Section headings: 10.5-11 pt bold with a thin divider.
 - Body: 8.8-9.5 pt, readable line spacing.
-- Bullets: compact hanging indent; no decorative icons or heavy tables.
+- Bullets: compact hanging indent; no decorative icons, photos, sidebars, or heavy tables.
 
 ## Content budget
 
@@ -19,6 +19,7 @@ Default one-page budget:
 - Strongest experience: 3-5 bullets total.
 - Secondary experience: 2-3 bullets total.
 - Project experience: 2-4 bullets total.
+- Campus experience: 0-1 compact entry, only if it strengthens PM evidence.
 - Skills: 1-2 compact lines.
 
 For internship/campus resumes:
