@@ -1,5 +1,17 @@
 # JD Tailoring
 
+## Required pre-step: multi-tag capability analysis
+
+Before tailoring a resume to a JD, read `jd-multitag-capability-map.md`. Do not rely only on the job title. First analyze:
+
+- Title-seeded tags.
+- JD-content tags from responsibilities and requirements.
+- Weighted tag mix.
+- 3-6 core capabilities.
+- Resume evidence priorities and red lines.
+
+Send this analysis to the user and ask for confirmation or correction. Only rewrite the resume after the user confirms or modifies the tags/capabilities.
+
 ## Workflow
 
 1. Extract JD signals:

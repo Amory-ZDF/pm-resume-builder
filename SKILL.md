@@ -82,6 +82,7 @@ Hard constraints:
 - `references/input-handling.md`: PDF/Word/Markdown/text input extraction workflow and privacy rules.
 - `references/reference-structure-standard.md`: generic one-page Chinese PM resume structure and layout standard derived from a private sample, with no personal content.
 - `references/writing-patterns.md`: PM resume section and bullet writing formulas.
+- `references/jd-multitag-capability-map.md`: multi-tag JD analysis, capability inventory, and user-confirmation workflow for role-specific tailoring.
 - `references/honesty-guardrails.md`: reasonable packaging, metrics, internship scope, and red-flag wording.
 - `references/jd-tailoring.md`: JD keyword extraction and tailoring workflow.
 - `references/one-page-docx-rules.md`: one-page budgets, compression order, and Word layout constraints.
