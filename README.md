@@ -2,7 +2,7 @@
 
 一个帮助 AI Agent 生成和定制**中文产品经理简历**的 Skill。
 
-适用于 Codex、Claude 和其他支持读取文件的 Agent。目标是输出一份**简洁、互联网大厂风格、一页以内的 Word 简历**。
+适用于 Codex、Claude 和其他支持读取文件的 Agent。目标是输出一份**简洁、互联网大厂风格、一页以内的 Word 产品经理简历**。
 
 ## ✨ 能解决什么问题
 
@@ -152,23 +152,3 @@ flowchart TD
 ## 📄 License
 
 MIT License
-
-Copyright (c) 2026 AIPM AmoryZ
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
