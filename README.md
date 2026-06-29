@@ -109,6 +109,66 @@ pm-resume-builder/
     ├── extract_resume_input.py
     ├── build_pm_resume_docx.py
     ├── build_pm_resume_pdf.py
+    ├── check_resume_json.py
     ├── check_docx_layout.py
     └── export_docx_to_pdf.py
 ```
+
+## 🧭 简历优化流程
+
+```mermaid
+flowchart TD
+    A([📥 上传 / 粘贴简历]) --> B{🎯 是否有目标 JD？}
+
+    B -- "没有 JD" --> C["识别求职方向<br/>产品经理 / 策略产品 / AI 产品等"]
+    B -- "有 JD" --> D["解析岗位要求<br/>提炼岗位能力标签"]
+
+    C --> E["拆解原简历内容<br/>教育 / 实习 / 项目 / 技能"]
+    D --> E
+
+    E --> F["提炼核心经历<br/>每段经历先聚类为 4-5 个能力点"]
+    F --> G["改写大厂风格表达<br/>每段保留 2-4 个重点"]
+
+    G --> H["真实性检查<br/>不编造经历，不夸大实习职责"]
+    H --> I["表达质量检查<br/>是否具体、有数据、有产品能力"]
+    I --> J["一页排版检查<br/>不超页，底部不大面积留白"]
+
+    J --> K{✅ 是否通过？}
+    K -- "否" --> L["自动优化<br/>超页则压缩，留白则补充真实经历细节"]
+    L --> H
+    K -- "是" --> M([📄 交付可直接投递的一页简历])
+
+    classDef input fill:#EAF4FF,stroke:#4A90E2,color:#17324D;
+    classDef work fill:#F7F0FF,stroke:#8E63CE,color:#2D1B4E;
+    classDef check fill:#FFF7E6,stroke:#F5A623,color:#4A3200;
+    classDef done fill:#EAF8EF,stroke:#3BA55C,color:#123D22;
+
+    class A,B,C,D input;
+    class E,F,G work;
+    class H,I,J,K,L check;
+    class M done;
+```
+
+## 📄 License
+
+MIT License
+
+Copyright (c) 2026 AIPM AmoryZ
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
