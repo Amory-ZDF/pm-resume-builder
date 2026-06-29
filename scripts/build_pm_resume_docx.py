@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -80,8 +81,11 @@ def add_text_line(doc: Document, text: str, size=9, bold=False, align=None, afte
     if align is not None:
         p.alignment = align
     set_para_spacing(p, after=after)
-    run = p.add_run(text)
-    set_run_font(run, size, bold, TEXT)
+    if bold:
+        run = p.add_run(text)
+        set_run_font(run, size, bold, TEXT)
+    else:
+        add_rich_text(p, text, size)
     return p
 
 
@@ -128,6 +132,29 @@ def add_education(doc: Document, items: list[dict[str, Any]], compactness: str):
             add_text_line(doc, "；".join([str(x) for x in details if x]), size={"normal": 8.8, "tight": 8.5, "ultra": 8.2}[compactness], after=0)
 
 
+IMPORTANT_PATTERN = re.compile(
+    r"(\d+(?:\.\d+)?\s*(?:\+|%|％|w|W|万|千|百|小时|分钟|天|周|月|年|人|次|个|条|篇)|"
+    r"\d+(?:\.\d+)?/\d+(?:\.\d+)?|"
+    r"(?:TOP|Top|top)\s*\d+|"
+    r"(?:GMV|ROI|CTR|CVR|DAU|MAU|SQL|A/B|PRD|SOP|RAG|LLM|AI))"
+)
+
+
+def add_rich_text(paragraph, text: str, size: float, *, base_bold: bool = False, emphasize_metrics: bool = True):
+    pos = 0
+    text = str(text)
+    for match in IMPORTANT_PATTERN.finditer(text) if emphasize_metrics else []:
+        if match.start() > pos:
+            run = paragraph.add_run(text[pos:match.start()])
+            set_run_font(run, size, base_bold, TEXT)
+        run = paragraph.add_run(match.group(0))
+        set_run_font(run, size, True, TEXT)
+        pos = match.end()
+    if pos < len(text):
+        run = paragraph.add_run(text[pos:])
+        set_run_font(run, size, base_bold, TEXT)
+
+
 def add_bullet(doc: Document, text: str, compactness: str):
     p = doc.add_paragraph(style=None)
     set_para_spacing(p, after={"normal": 0.6, "tight": 0.3, "ultra": 0}[compactness], line={"normal": 1.02, "tight": 1.0, "ultra": 0.95}[compactness])
@@ -136,8 +163,7 @@ def add_bullet(doc: Document, text: str, compactness: str):
     pf.first_line_indent = Inches(-0.10)
     run = p.add_run("• ")
     set_run_font(run, {"normal": 8.9, "tight": 8.6, "ultra": 8.3}[compactness], False, ACCENT)
-    run = p.add_run(str(text))
-    set_run_font(run, {"normal": 8.9, "tight": 8.6, "ultra": 8.3}[compactness], False, TEXT)
+    add_rich_text(p, str(text), {"normal": 8.9, "tight": 8.6, "ultra": 8.3}[compactness])
 
 
 def add_entry(doc: Document, entry: dict[str, Any], compactness: str):
@@ -174,9 +200,27 @@ def add_skills(doc: Document, skills: list[Any], compactness: str):
     if not skills:
         return
     add_section_heading(doc, "技能与其他", compactness)
-    text = "；".join([str(x) for x in skills if x])
-    if text:
-        add_text_line(doc, text, size={"normal": 8.9, "tight": 8.6, "ultra": 8.3}[compactness], after=0)
+    size = {"normal": 8.9, "tight": 8.6, "ultra": 8.3}[compactness]
+    lines: list[str] = []
+    for item in skills:
+        if not item:
+            continue
+        if isinstance(item, dict):
+            label = str(item.get("label") or item.get("category") or "").strip()
+            values = item.get("items") or item.get("values") or item.get("text") or ""
+            if isinstance(values, list):
+                values = "、".join([str(v) for v in values if v])
+            line = f"{label}：{values}" if label else str(values)
+        else:
+            line = str(item).strip()
+        if line:
+            # Split semicolon-packed skill rows into separate readable rows.
+            parts = [p.strip() for p in re.split(r"[;；]", line) if p.strip()]
+            lines.extend(parts if len(parts) > 1 else [line])
+    for line in lines:
+        p = doc.add_paragraph()
+        set_para_spacing(p, after={"normal": 0.5, "tight": 0.25, "ultra": 0}[compactness], line={"normal": 1.02, "tight": 1.0, "ultra": 0.95}[compactness])
+        add_rich_text(p, line, size)
 
 
 def scrub_metadata(doc: Document):

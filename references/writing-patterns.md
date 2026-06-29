@@ -61,3 +61,23 @@ Default target:
 - 18-32 Chinese characters for tight bullets.
 - 35-55 Chinese characters for important bullets with metrics.
 - Avoid multi-clause bullets over 70 Chinese characters unless necessary.
+
+## Skills section formatting
+
+Do not pack unrelated skills into one semicolon-heavy line. Split skills into 2-4 readable rows by category, for example:
+
+- `产品/运营方法：商家分层、活动 SOP、数据复盘、内容卖点提炼`
+- `工具：PS、AI、Procreate、Excel`
+- `语言/方向：CET-6、跨境电商、内容营销、商家运营`
+
+Prefer category labels plus Chinese comma/顿号-separated items. Avoid one long row with multiple semicolons.
+
+## Evidence depth
+
+When source resumes contain concrete details, keep and refine them instead of replacing with generic PM phrases. Prioritize:
+- user/business object: 商家、用户、创作者、广告主、运营同学、研发/设计等
+- method: 访谈、问卷、竞品分析、漏斗拆解、SQL、埋点、看板、PRD、原型、SOP、复盘
+- deliverable: 需求文档、原型图、流程图、数据看板、活动方案、策略规则、验收清单
+- outcome: conversion, efficiency, coverage, accuracy, satisfaction, time saved, volume handled
+
+Bold key numbers, ratios, rankings, and named hard skills in DOCX when supported by the source.

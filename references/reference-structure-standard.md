@@ -53,7 +53,7 @@ Campus:
 - 1 bullet only, unless the experience strongly proves PM abilities.
 
 Skills:
-- 2-4 short skill lines or compact semicolon-separated groups.
+- 2-4 short skill lines grouped by category; avoid one long semicolon-separated line.
 - Group by PM method, tools, data, AI/technical, and language/certificates when relevant.
 
 ## Density target

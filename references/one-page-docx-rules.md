@@ -39,7 +39,7 @@ When the resume is one page but leaves more than about 3 blank lines at the bott
 1. Restore the strongest PM-relevant bullet previously removed.
 2. Add or improve one context sentence for the strongest experience.
 3. Add source-supported methods: user research,竞品分析,需求分析,PRD,原型,流程图,数据分析,复盘.
-4. Expand skills into 2 compact lines grouped by PM methods / tools / data / AI or technical literacy.
+4. Expand skills into 2-4 compact category rows grouped by PM methods / tools / data / AI or technical literacy; do not use one semicolon-heavy long row.
 5. Add relevant coursework, awards, portfolio, or campus project only if already present in the source.
 6. Loosen layout moderately: normal compactness, slightly larger body font, natural line spacing, or slightly larger vertical margins.
 
@@ -71,3 +71,7 @@ A final answer should only claim one-page success after one of these checks:
 If the check returns 1 page but unacceptable bottom whitespace, run the expansion sequence and regenerate. If the check returns more than 1 page, run the compression sequence and regenerate.
 
 If rendering tools are unavailable, disclose that visual verification could not be completed.
+
+## Deliverable hygiene for batch tests
+
+When running batch tests, keep internal artifacts separate from user-facing deliverables. Create a clean deliverables folder that contains only final `.docx` and `.pdf` files, plus at most a short summary. Keep extracted text, JSON, logs, and layout diagnostics in internal folders.

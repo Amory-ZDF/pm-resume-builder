@@ -9,7 +9,7 @@ A resume is deliverable only when it passes all applicable gates:
 1. **Truth gate**: no invented company, school, role, project, award, tool, or exact metric.
 2. **PM relevance gate**: each major experience has product-manager evidence: user/market/业务 insight, requirement analysis, prototype/PRD, data analysis, project coordination, launch, or review.
 3. **Structure gate**: header, education, experience/project sections, and skills are clear; no dense paragraphs or broken section order.
-4. **Density gate**: enough real content is used. A normal one-page junior PM resume should have about 12-18 bullets; sparse resumes should restore real details before changing layout.
+4. **Density gate**: enough real content is used. A normal one-page junior PM resume should have about 12-18 bullets; sparse resumes should restore real details before changing layout. Do not replace specific source details with empty generic phrases.
 5. **Layout gate**: final DOCX is one page; bottom blank space is no more than about 3 lines when enough source content exists.
 6. **Readability gate**: text remains readable; do not use tiny font, hidden text, negative spacing, or cramped layout to pass page constraints.
 7. **Delivery gate**: final output includes DOCX and, when requested/possible, a short summary of limitations or unresolved checks.
@@ -66,6 +66,7 @@ Do **not** stop just because the page count is 1. If the bottom blank area is to
 4. Add PM-relevant methods from the source: user research,竞品分析,需求池,PRD,原型,流程图,数据分析,复盘.
 5. Expand skills into 2 compact lines grouped by PM method / tools / data / AI or technical literacy.
 6. Add relevant coursework, awards, portfolio, or campus project only if present in the source.
+7. Split semicolon-packed skills into multiple category rows instead of one long line.
 7. Loosen layout moderately: normal compactness, slightly larger body font, natural line spacing, slightly wider vertical margins.
 
 Stop expanding before claims become speculative. If source content is genuinely insufficient, keep whitespace and note the limitation.
@@ -117,3 +118,15 @@ For batch tests with no user available:
 - Record issues in `reports/summary.md`.
 - If bottom whitespace fails because source content is sparse, mark `CHECK: source content likely insufficient` rather than inventing filler.
 - If many files fail the same gate, report it as a skill improvement opportunity.
+
+## Key data emphasis
+
+When generating DOCX, emphasize source-supported key data with bold text:
+
+- percentages and growth/decline numbers, e.g. `提升 12%`
+- volumes, e.g. `覆盖 300+ 商家`, `处理 1,000 条反馈`
+- efficiency/time, e.g. `从 2 小时缩短至 30 分钟`
+- rankings/awards, e.g. `Top 10%`, `一等奖`
+- hard tools/skills when central to the role, e.g. `SQL`, `A/B`, `PRD`, `SOP`, `AI`
+
+Do not bold entire bullets. Bold only the data/tool fragment so the resume remains restrained.
