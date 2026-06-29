@@ -43,6 +43,7 @@ IMPORTANT_PATTERN = re.compile(
     r"(?:TOP|Top|top)\s*\d+|"
     r"(?:GMV|ROI|CTR|CVR|DAU|MAU|SQL|A/B|PRD|SOP|RAG|LLM|AI))(?:[。；;，,])?"
 )
+POINT_LABEL_PATTERN = re.compile(r"^([\u4e00-\u9fffA-Za-z0-9/]{2,12}[:：])")
 
 
 def set_run_font(run, size_pt: float | None = None, bold: bool | None = None, color: RGBColor | None = None):
@@ -175,7 +176,14 @@ def add_bullet(doc: Document, text: str):
     pf.first_line_indent = Inches(-0.10)
     run = p.add_run("• ")
     set_run_font(run, BODY_PT, False, ACCENT)
-    add_rich_text(p, clean_bullet_text(text), BODY_PT)
+    bullet = clean_bullet_text(text)
+    label = POINT_LABEL_PATTERN.match(bullet)
+    if label:
+        run = p.add_run(label.group(1))
+        set_run_font(run, BODY_PT, True, TEXT)
+        add_rich_text(p, bullet[label.end():], BODY_PT)
+    else:
+        add_rich_text(p, bullet, BODY_PT)
 
 
 def add_entry(doc: Document, entry: dict[str, Any]):

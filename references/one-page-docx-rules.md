@@ -18,13 +18,15 @@ Treat this as a fixed template. Do not change fonts, margins, line spacing, or s
 Default one-page budget:
 - Header + basic info: 3-5 lines.
 - Education: 1-3 lines.
-- Strongest experience: 3-5 bullets total.
-- Secondary experience: 2-3 bullets total.
-- Project experience: 2-4 bullets total.
+- Strongest experience: 3-4 labeled bullets total.
+- Secondary experience: 2-4 labeled bullets total.
+- Project experience: 2-4 labeled bullets total.
 - Campus experience: 0-1 compact entry, only if it strengthens PM evidence.
-- Skills: 1-2 compact lines.
+- Skills: 2-4 compact lines, only real skills/tools/languages/directions.
 
 For normal junior/intern PM resumes, do not stop at 5-8 bullets if the source has usable material. Target 12-18 bullets or bullet-equivalent lines across internships, work, projects, campus PM evidence, and skills. If the source supports fewer than 10 high-signal lines, mark it as source-sparse instead of pretending the page is naturally full.
+
+No single entry may exceed 4 bullets. If one experience has many facts, cluster them into 4 labeled points before writing, e.g. `需求分析：...`, `功能规划：...`, `数据复盘：...`, `项目推进：...`.
 
 For internship/campus resumes:
 - Internships: 40-50% of page.
@@ -42,12 +44,15 @@ When the resume is one page but leaves more than about 3 blank lines at the bott
 
 1. Restore the strongest PM-relevant bullet previously removed.
 2. Add or improve one context sentence for the strongest experience.
-3. Add source-supported methods: user research,竞品分析,需求分析,PRD,原型,流程图,数据分析,复盘.
-4. Expand skills into 2-4 compact category rows grouped by PM methods / tools / data / AI or technical literacy; do not use one semicolon-heavy long row.
+3. Enrich existing work/internship/project bullets with source-supported methods: user research,竞品分析,需求分析,PRD,原型,流程图,数据分析,复盘.
+4. If an entry has more than 4 small bullets, merge them into 4 complete labeled bullets instead of adding more bullets.
 5. Add relevant coursework, awards, portfolio, or campus project only if already present in the source.
-6. If still sparse, ask for more facts or clearly mark the source as thin. Do **not** enlarge fonts, margins, or line spacing to fill the page.
+6. Expand skills only when the original resume has real missing skills/tools/languages; keep skills at 2-4 lines.
+7. If still sparse, ask for more facts or clearly mark the source as thin. Do **not** enlarge fonts, margins, or line spacing to fill the page.
 
 Do not invent filler just to fill the page. If the source is genuinely too thin, keep the whitespace and state the limitation.
+
+Do not fix bottom whitespace by adding an extra `能力补充` section or pseudo-skill rows such as `项目协作：...`, `内容策略：...`, `增长复盘：...`, `PM迁移：...`, or `目标岗位：...`. Those lines look unlike a professional resume. Put source-supported details back into the relevant experience bullets.
 
 ## Compression sequence
 
@@ -83,7 +88,7 @@ For bottom whitespace, do not rely on Word line count alone. The check must meas
 1. Generate DOCX with the fixed template.
 2. Check that DOCX with `scripts/check_docx_layout.py --method word` when Microsoft Word is available, or the Documents skill render workflow otherwise.
 3. If `pages > 1`, reduce content: delete weak bullets, merge repeated bullets, shorten summaries, remove low-priority sections.
-4. If `pages == 1` but `bottom_blank_lines > 3`, add content: restore source-supported bullets, add concise context, split strong multi-scope entries, expand skills from source.
+4. If `pages == 1` but `bottom_blank_lines > 3`, add content inside existing work/internship/project entries: restore source-supported details, enrich labeled bullets, add concise context, or split strong multi-scope entries. Do not append filler skills or a supplemental ability section.
 5. Regenerate the DOCX and repeat. Do not change the template.
 
 Do not use these as proof of Word pagination: direct JSON-to-PDF output, estimated line counts, `docProps/app.xml` page metadata, or visual guessing from Markdown. They may help diagnose content density, but the final gate is rendering/checking the DOCX itself.

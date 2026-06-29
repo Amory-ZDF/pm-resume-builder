@@ -9,11 +9,12 @@ A resume is deliverable only when it passes all applicable gates:
 1. **Truth gate**: no invented company, school, role, project, award, tool, or exact metric.
 2. **PM relevance gate**: each major experience has product-manager evidence: user/market/业务 insight, requirement analysis, prototype/PRD, data analysis, project coordination, launch, or review.
 3. **Structure gate**: header, education, experience/project sections, and skills are clear; no dense paragraphs or broken section order.
-4. **Density gate**: enough real content is used. A normal one-page junior PM resume should have about 12-18 bullets or bullet-equivalent lines; sparse resumes should restore real details before delivery. Do not replace specific source details with empty generic phrases.
-5. **Fixed-format gate**: fonts, margins, section spacing, and line spacing stay uniform. Do not enlarge, shrink, or otherwise change layout to solve blank space or overflow.
-6. **Layout gate**: final DOCX is one page; bottom blank space is no more than about 3 lines when enough source content exists.
-7. **Readability gate**: text remains readable; do not use tiny font, hidden text, negative spacing, or cramped layout to pass page constraints.
-8. **Delivery gate**: final output includes DOCX and, when requested/possible, a short summary of limitations or unresolved checks.
+4. **Bullet gate**: each experience/project entry has at most 4 bullets, and every bullet starts with a concise capability label such as `需求分析：` or `功能规划：`.
+5. **Density gate**: enough real content is used. A normal one-page junior PM resume should have about 12-18 bullets or bullet-equivalent lines; sparse resumes should restore real details before delivery. Do not replace specific source details with empty generic phrases.
+6. **Fixed-format gate**: fonts, margins, section spacing, and line spacing stay uniform. Do not enlarge, shrink, or otherwise change layout to solve blank space or overflow.
+7. **Layout gate**: final DOCX is one page; bottom blank space is no more than about 3 lines when enough source content exists.
+8. **Readability gate**: text remains readable; do not use tiny font, hidden text, negative spacing, or cramped layout to pass page constraints.
+9. **Delivery gate**: final output includes DOCX and, when requested/possible, a short summary of limitations or unresolved checks.
 
 ## Review loop
 
@@ -38,12 +39,14 @@ Check the JSON before or after DOCX generation:
 - Education: school, major/degree, time; relevant courses/awards only if useful.
 - Experience/project sections: strongest PM evidence first.
 - Each important entry has either:
-  - 1 context sentence + 2-4 bullets, or
+  - 1 context sentence + 2-4 labeled bullets, or
   - a compact heading + 2-4 bullets when page budget is tight.
-- Bullets use action + method + deliverable + result.
+- Bullets use `能力标签：action + method + deliverable + result`.
+- No entry/project has more than 4 bullets. If raw content has 5+ facts, merge them into 4 complete points.
 - Internship wording uses conservative verbs unless user evidence supports stronger ownership.
 - Metrics are provided, derived, or softly phrased; no fake exact numbers.
-- Skills are compact and relevant to PM roles.
+- Skills are compact and relevant to PM roles; do not add pseudo-skill rows to fill whitespace.
+- No filler sections such as `能力补充`; add source-supported details inside relevant work/internship/project bullets instead.
 - If total experience/project bullets are under 10, confirm the source is genuinely sparse; otherwise go back to the extracted resume text and restore PM-relevant details before generating files.
 
 ## Layout review checklist
@@ -66,13 +69,15 @@ Do **not** stop just because the page count is 1. If the bottom blank area is to
 1. Restore high-signal bullets that were cut too aggressively.
 2. Add one concise context sentence to the strongest internship/work/project entry if missing.
 3. Split a strong multi-scope experience into two project subtitles if it improves PM evidence.
-4. Add PM-relevant methods from the source: user research,竞品分析,需求池,PRD,原型,流程图,数据分析,复盘.
-5. Expand skills into 2 compact lines grouped by PM method / tools / data / AI or technical literacy.
-6. Add relevant coursework, awards, portfolio, or campus project only if present in the source.
-7. Split semicolon-packed skills into multiple category rows instead of one long line.
+4. Add PM-relevant methods from the source inside existing labeled bullets: user research,竞品分析,需求池,PRD,原型,流程图,数据分析,复盘.
+5. If an entry now has more than 4 bullets, merge nearby facts into 4 stronger labeled bullets.
+6. Expand skills only when the source has real missing tools/languages/methods; keep skills to 2-4 lines.
+7. Add relevant coursework, awards, portfolio, or campus project only if present in the source.
 8. If still sparse, ask for more facts or deliver with a source-sparse limitation note. Do not change typography or spacing to fill the page.
 
 Stop expanding before claims become speculative. If source content is genuinely insufficient, keep whitespace and note the limitation.
+
+Never solve bottom whitespace by appending resume-unfriendly lines such as `项目协作：...`, `内容策略：...`, `增长复盘：...`, `PM迁移：...`, `目标岗位：...`, or a separate `能力补充` section. Move factual details into the relevant internship/project bullet instead.
 
 ## If over one page
 

@@ -55,7 +55,9 @@ Hard constraints:
 6. **Write content with PM bullet patterns**
    Read `references/writing-patterns.md` before drafting bullets. For every work/internship/project entry:
    - Start with one concise project/context sentence: business background + target problem + candidate's role + outcome.
-   - Then write bullets using: action + method + deliverable + result.
+   - Before writing, cluster the raw material into 4-5 candidate points, then merge into 2-4 final bullets.
+   - Each final bullet must start with a short capability label, e.g. `需求分析：`, `功能规划：`, `数据复盘：`, and use action + method + deliverable + result.
+   - Each work/internship/project/campus entry and each project subtitle may have at most 4 bullets.
    - If one company/internship contains unrelated projects, split them under project subtitles.
 
 7. **Apply honesty guardrails**
@@ -73,8 +75,9 @@ Hard constraints:
 
 11. **Generate and verify DOCX**
    - Prefer using `scripts/build_pm_resume_docx.py` with structured JSON. The script uses a fixed Word style; do not pass layout/compactness changes to force fit.
+   - Before generating DOCX, run `scripts/check_resume_json.py` on structured JSON to catch unlabeled bullets, entries with more than 4 bullets, and filler skill/ability lines.
    - Verify the generated DOCX with `scripts/check_docx_layout.py` or the Documents skill render workflow before delivery. On macOS, the script should use Microsoft Word geometry to measure actual page count and bottom whitespace from a temporary DOCX copy; a PDF generated directly from JSON is not proof that the Word file is one page.
-   - If the DOCX is over one page, compress content and regenerate. If bottom blank area is too large, restore/expand real PM-relevant content and regenerate. Do not change font size, margins, or line spacing to solve either problem.
+   - If the DOCX is over one page, compress content and regenerate. If bottom blank area is too large, restore/expand real PM-relevant content inside existing work/internship/project bullets and regenerate. Do not add a filler skills row or extra “能力补充” section; do not change font size, margins, or line spacing to solve either problem.
    - If the user requests PDF deliverables during batch tests, prefer `scripts/export_docx_to_pdf.py` after the DOCX passes layout checks, or `scripts/build_pm_resume_pdf.py` only as a convenience copy with a note that Word pagination was checked separately.
    - Iterate until the latest checked version passes: one page, no clipping/overlap, bottom blank area within the 3-line rule when source content allows.
 
@@ -91,6 +94,7 @@ Hard constraints:
 - `scripts/extract_resume_input.py`: extract plain text from `.docx`, `.pdf`, `.md`, or `.txt` resume/JD inputs.
 - `scripts/build_pm_resume_docx.py`: build a fixed-style Chinese PM resume DOCX from JSON.
 - `scripts/build_pm_resume_pdf.py`: build a fixed-style Chinese PM resume PDF directly from JSON; do not use it as Word pagination proof.
+- `scripts/check_resume_json.py`: check structured JSON for labeled bullets, max 4 bullets per entry/project, and no filler skill/ability sections.
 - `scripts/check_docx_layout.py`: check actual Word/DOCX page count plus bottom whitespace; prefers Microsoft Word geometry and falls back to temporary PDF rendering when needed.
 - `scripts/export_docx_to_pdf.py`: batch export DOCX to PDF while minimizing macOS Word file-access prompts by using temporary copies.
 

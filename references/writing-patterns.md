@@ -20,18 +20,35 @@ Use this shape for 工作经历、实习经历、项目经历、校园经历:
 
 1. Entry heading: `公司/组织｜岗位/项目角色｜时间`
 2. One-sentence context: `围绕[业务/用户/场景]，为解决[问题/目标]，参与/负责[模块]，产出[结果/沉淀]。`
-3. Bullets: action + method + deliverable + result.
+3. Bullets: `能力标签：action + method + deliverable + result`.
+
+Before writing bullets for each entry, first cluster the raw material into **4-5 candidate points** such as 需求分析、功能规划、数据分析、项目推进、效果复盘. Then merge them into **2-4 final bullets**. Every final bullet must be a complete point, not a loose one-sentence list item.
+
+Hard bullet rules:
+- Each work/internship/project/campus entry may have **at most 4 bullets**.
+- Each project subtitle under an entry may also have **at most 4 bullets**.
+- Every bullet starts with a short label plus Chinese colon, e.g. `需求分析：`, `功能规划：`, `数据复盘：`.
+- One bullet may combine several related details if they belong to the same capability point.
+- Do not create 5-8 bullets for one entry just to fill the page; merge details into 4 labeled bullets.
 
 Good bullet formula:
-`动词 + 对象/问题 + 方法/工具 + 产出物 + 结果/影响`
+`标签：动词 + 对象/问题 + 方法/工具 + 产出物 + 结果/影响`
 
 Examples:
-- `参与会员转化链路优化，基于埋点数据拆解注册-付费漏斗，定位权益说明不清与支付入口层级深的问题，输出原型与需求文档，推动转化率提升约 8%。`
-- `协助搭建运营数据看板，梳理核心指标口径并与研发确认埋点方案，沉淀日/周报模板，将人工统计时间从 2 小时缩短至 30 分钟。`
+- `需求分析：参与会员转化链路优化，基于埋点数据拆解注册-付费漏斗，定位权益说明不清与支付入口层级深的问题。`
+- `功能规划：输出权益说明页原型、支付入口调整方案和需求文档，协同研发评审并推动转化率提升约 8%。`
+- `数据复盘：协助搭建运营数据看板，梳理核心指标口径与埋点方案，沉淀日/周报模板，将人工统计时间从 2 小时缩短至 30 分钟。`
+
+Common labels:
+- 产品类：`需求分析`、`功能规划`、`原型设计`、`流程设计`、`策略设计`
+- 数据类：`数据分析`、`指标拆解`、`效果复盘`、`埋点设计`
+- 推进类：`项目推进`、`跨方协同`、`上线跟进`、`风险控制`
+- 运营类：`用户研究`、`活动策略`、`内容优化`、`商家运营`、`增长转化`
+- AI类：`AI应用`、`模型评测`、`知识库建设`、`人机协作`
 
 ## Project splitting inside one company
 
-If projects are similar, keep one entry with 3-4 bullets.
+If projects are similar, keep one entry with 2-4 labeled bullets.
 If projects show different PM capabilities, split under subtitles:
 
 `项目一：用户增长活动`
@@ -40,7 +57,7 @@ If projects show different PM capabilities, split under subtitles:
 `项目二：后台数据看板`
 - bullets
 
-Use at most 2 project subtitles per company unless the user has senior experience and enough page budget. For campus experiences, usually keep only one bullet unless it is a product-like project with real deliverables.
+Use at most 2 project subtitles per company unless the user has senior experience and enough page budget. For campus experiences, usually keep 1-2 labeled bullets unless it is a product-like project with real deliverables.
 
 ## Product manager capability vocabulary
 
@@ -71,6 +88,8 @@ Do not pack unrelated skills into one semicolon-heavy line. Split skills into 2-
 - `语言/方向：CET-6、跨境电商、内容营销、商家运营`
 
 Prefer category labels plus Chinese comma/顿号-separated items. Avoid one long row with multiple semicolons.
+
+Do not use the skills section as a bottom-whitespace filler. Avoid adding pseudo-skill rows such as `项目协作：...`, `内容策略：...`, `增长复盘：...`, `PM迁移：...`, or `目标岗位：...` simply because the page is sparse. If those details are source-supported, rewrite them into the most relevant internship/project bullet instead.
 
 ## Evidence depth
 
