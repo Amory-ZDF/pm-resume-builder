@@ -7,7 +7,7 @@ description: Create, rewrite, tailor, and export concise one-page Chinese produc
 
 ## Outcome
 
-Create a **Chinese, concise Internet-company-style product manager resume** and deliver a `.docx` file. Accept raw text, Markdown, TXT, PDF, or Word DOCX as candidate resume inputs; accept pasted text, PDF, or image files as target JD inputs. It is acceptable to draft Markdown internally, but the final user deliverable must be Word DOCX unless the user explicitly asks otherwise.
+Create a **Chinese, concise Internet-company-style product manager resume** and deliver a `.docx` file. Accept raw text, Markdown, TXT, PDF, or Word DOCX as candidate resume inputs; accept pasted text, PDF, or image files as target JD inputs. It is acceptable to draft Markdown internally, but the final user deliverable must be Word DOCX unless the user explicitly asks otherwise. If PDF is requested too, prefer generating DOCX and PDF from the same structured JSON instead of making Microsoft Word open protected user folders.
 
 Hard constraints:
 - Keep the resume to exactly **1 page** whenever enough content exists.
@@ -72,7 +72,8 @@ Hard constraints:
 
 11. **Generate and verify DOCX**
    - Prefer using `scripts/build_pm_resume_docx.py` with structured JSON.
-   - Use `scripts/check_docx_layout.py` or the Documents skill render workflow to verify page count and bottom whitespace.
+   - If the user requests PDF deliverables during batch tests, prefer `scripts/build_pm_resume_pdf.py` from the same JSON to avoid Microsoft Word file-access prompts.
+   - Use `scripts/check_docx_layout.py` or the Documents skill render workflow to verify page count and bottom whitespace. If an exact DOCX-to-PDF rendering is required, use `scripts/export_docx_to_pdf.py` so batch exports use headless conversion first and Microsoft Word only through temporary files.
    - Do not deliver solely because page count is 1. If bottom blank area is too large, restore/expand real PM-relevant content or loosen layout, then regenerate and recheck.
    - Iterate until the latest checked version passes: one page, no clipping/overlap, bottom blank area within the 3-line rule when source content allows.
 
@@ -88,7 +89,9 @@ Hard constraints:
 - `references/quality-review-loop.md`: internal review loop for truth, PM relevance, density, layout, rewrite decisions, and final delivery gates.
 - `scripts/extract_resume_input.py`: extract plain text from `.docx`, `.pdf`, `.md`, or `.txt` resume/JD inputs.
 - `scripts/build_pm_resume_docx.py`: build a compact Chinese PM resume DOCX from JSON.
+- `scripts/build_pm_resume_pdf.py`: build a matching compact Chinese PM resume PDF directly from JSON without Word automation.
 - `scripts/check_docx_layout.py`: convert DOCX to PDF and check page count plus bottom whitespace.
+- `scripts/export_docx_to_pdf.py`: batch export DOCX to PDF while minimizing macOS Word file-access prompts by using temporary copies.
 
 ## DOCX generation contract
 

@@ -75,3 +75,11 @@ If rendering tools are unavailable, disclose that visual verification could not 
 ## Deliverable hygiene for batch tests
 
 When running batch tests, keep internal artifacts separate from user-facing deliverables. Create a clean deliverables folder that contains only final `.docx` and `.pdf` files, plus at most a short summary. Keep extracted text, JSON, logs, and layout diagnostics in internal folders.
+
+## PDF export without repeated Word permission prompts
+
+For batch tests or user-facing Word+PDF deliverables generated from structured JSON, prefer `scripts/build_pm_resume_pdf.py` and `scripts/build_pm_resume_docx.py` from the same JSON. This avoids Microsoft Word automation entirely and prevents repeated Desktop/Documents permission prompts.
+
+If an exact DOCX-to-PDF rendering is required, use `scripts/export_docx_to_pdf.py` instead of hand-written AppleScript. The script first tries LibreOffice/soffice headless. If it must use Microsoft Word on macOS, it copies DOCX files to a temporary directory, exports PDFs there in one Word session, and then copies PDFs back to the output directory. This avoids repeatedly asking Microsoft Word for Desktop/Documents file access.
+
+Do not make Word open files directly from Desktop, Documents, iCloud Drive, or other protected user folders in a per-file loop.

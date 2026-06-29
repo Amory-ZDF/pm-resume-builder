@@ -36,6 +36,8 @@
 - 一页产品经理简历
 - Word `.docx` 文件
 
+如果你需要，也可以让 Agent 同时输出 PDF。Skill 内置了直接从结构化内容生成 PDF 的方式，批量测试时不需要反复打开 Word。
+
 ## 👋 你需要做什么
 
 - 将你的帅照/美照放进简历里（如果有）
@@ -100,9 +102,13 @@ pm-resume-builder/
 │   ├── writing-patterns.md
 │   ├── honesty-guardrails.md
 │   ├── jd-tailoring.md
+│   ├── jd-multitag-capability-map.md
+│   ├── quality-review-loop.md
 │   └── one-page-docx-rules.md
 └── scripts/
     ├── extract_resume_input.py
     ├── build_pm_resume_docx.py
-    └── check_docx_layout.py
+    ├── build_pm_resume_pdf.py
+    ├── check_docx_layout.py
+    └── export_docx_to_pdf.py
 ```

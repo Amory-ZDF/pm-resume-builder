@@ -118,6 +118,8 @@ For batch tests with no user available:
 - Record issues in `reports/summary.md`.
 - If bottom whitespace fails because source content is sparse, mark `CHECK: source content likely insufficient` rather than inventing filler.
 - If many files fail the same gate, report it as a skill improvement opportunity.
+- For batch Word+PDF deliverables, prefer generating DOCX and PDF directly from the same structured JSON (`scripts/build_pm_resume_docx.py` + `scripts/build_pm_resume_pdf.py`) so Word never opens Desktop/Documents files.
+- Use `scripts/export_docx_to_pdf.py` only when an exact DOCX-to-PDF render is required; it avoids repeated Microsoft Word permission prompts by using headless conversion first and temporary Word copies as fallback.
 
 ## Key data emphasis
 
