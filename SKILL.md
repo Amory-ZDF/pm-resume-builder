@@ -65,17 +65,16 @@ Hard constraints:
    Read `references/jd-tailoring.md`. Extract JD keywords, map them to real evidence, then reorder and rewrite content. Never add unsupported domain experience just because the JD asks for it.
 
 9. **Fit to one page**
-   Read `references/one-page-docx-rules.md`. Use content budgets before creating DOCX, then verify after export. If over one page, compress in this order:
-   1. Remove weak/unrelated bullets.
-   2. Shorten bullets to one line when possible.
-   3. Merge overlapping project context sentences.
-   4. Reduce lower-priority sections.
-   5. Use tighter DOCX layout settings, but do not go below readable sizes.
+   Read `references/one-page-docx-rules.md`. Use content budgets before creating DOCX. Fit means both: exactly one page and no excessive bottom whitespace when enough factual source content exists.
 
-10. **Generate and verify DOCX**
+10. **Run the quality review loop**
+   Read `references/quality-review-loop.md` before final delivery. Generate DOCX, review truth/PM relevance/structure/density/layout, then choose: deliver, expand and rewrite, compress and rewrite, or ask the user. Iterate up to 3 times before delivering the best version with a limitation note.
+
+11. **Generate and verify DOCX**
    - Prefer using `scripts/build_pm_resume_docx.py` with structured JSON.
    - Use `scripts/check_docx_layout.py` or the Documents skill render workflow to verify page count and bottom whitespace.
-   - Iterate until the latest checked version passes: one page, no clipping/overlap, bottom blank area within the 3-line rule when content quantity allows.
+   - Do not deliver solely because page count is 1. If bottom blank area is too large, restore/expand real PM-relevant content or loosen layout, then regenerate and recheck.
+   - Iterate until the latest checked version passes: one page, no clipping/overlap, bottom blank area within the 3-line rule when source content allows.
 
 ## Resource routing
 
@@ -85,7 +84,8 @@ Hard constraints:
 - `references/jd-multitag-capability-map.md`: multi-tag JD analysis, capability inventory, and user-confirmation workflow for role-specific tailoring.
 - `references/honesty-guardrails.md`: reasonable packaging, metrics, internship scope, and red-flag wording.
 - `references/jd-tailoring.md`: JD keyword extraction and tailoring workflow.
-- `references/one-page-docx-rules.md`: one-page budgets, compression order, and Word layout constraints.
+- `references/one-page-docx-rules.md`: one-page budgets, expansion/compression order, and Word layout constraints.
+- `references/quality-review-loop.md`: internal review loop for truth, PM relevance, density, layout, rewrite decisions, and final delivery gates.
 - `scripts/extract_resume_input.py`: extract plain text from `.docx`, `.pdf`, `.md`, or `.txt` resume/JD inputs.
 - `scripts/build_pm_resume_docx.py`: build a compact Chinese PM resume DOCX from JSON.
 - `scripts/check_docx_layout.py`: convert DOCX to PDF and check page count plus bottom whitespace.

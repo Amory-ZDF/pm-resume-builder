@@ -32,6 +32,19 @@ For full-time resumes:
 - Projects: 20-30%.
 - Education/skills/internships: 10-20%.
 
+## Expansion sequence
+
+When the resume is one page but leaves more than about 3 blank lines at the bottom, first decide whether source content is sufficient. If it is sufficient, expand before delivery:
+
+1. Restore the strongest PM-relevant bullet previously removed.
+2. Add or improve one context sentence for the strongest experience.
+3. Add source-supported methods: user research,竞品分析,需求分析,PRD,原型,流程图,数据分析,复盘.
+4. Expand skills into 2 compact lines grouped by PM methods / tools / data / AI or technical literacy.
+5. Add relevant coursework, awards, portfolio, or campus project only if already present in the source.
+6. Loosen layout moderately: normal compactness, slightly larger body font, natural line spacing, or slightly larger vertical margins.
+
+Do not invent filler just to fill the page. If the source is genuinely too thin, keep the whitespace and state the limitation.
+
 ## Compression sequence
 
 When over one page:
@@ -47,12 +60,14 @@ Do not solve overflow by making unreadably tiny text, using negative spacing, hi
 
 ## Bottom whitespace rule
 
-The final page should not end with more than about 3 blank lines. If the resume has enough real content, fill the page by restoring one relevant bullet, adding a compact skills line, or slightly loosening spacing. If the candidate truly has little content, do not invent filler; mention that the source material is insufficient to naturally fill a full page.
+The final page should not end with more than about 3 blank lines. Page count alone is not enough. If the resume has enough real content, fill the page by restoring relevant bullets, adding a source-supported context sentence, expanding compact skills, or slightly loosening spacing. If the candidate truly has little content, do not invent filler; mention that the source material is insufficient to naturally fill a full page.
 
 ## Verification
 
 A final answer should only claim one-page success after one of these checks:
 - DOCX rendered to PDF/PNG and inspected; or
 - `scripts/check_docx_layout.py` reports 1 page and acceptable bottom whitespace.
+
+If the check returns 1 page but unacceptable bottom whitespace, run the expansion sequence and regenerate. If the check returns more than 1 page, run the compression sequence and regenerate.
 
 If rendering tools are unavailable, disclose that visual verification could not be completed.
