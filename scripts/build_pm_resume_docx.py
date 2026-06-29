@@ -21,6 +21,27 @@ FONT_FALLBACK = "PingFang SC"
 ACCENT = RGBColor(31, 78, 121)
 TEXT = RGBColor(30, 30, 30)
 
+LAYOUTS = {
+    "ultra": {"margin": 0.40, "normal": 8.5, "name": 15.5, "info": 8.4, "heading": 10.0, "section_before": 1, "line": 0.95, "bullet": 8.3, "small": 8.1, "entry": 8.5, "gap": 0},
+    "tight": {"margin": 0.45, "normal": 8.8, "name": 16.0, "info": 8.7, "heading": 10.2, "section_before": 2, "line": 1.0, "bullet": 8.6, "small": 8.3, "entry": 8.8, "gap": 0.3},
+    "normal": {"margin": 0.52, "normal": 9.2, "name": 17.0, "info": 9.0, "heading": 10.5, "section_before": 3, "line": 1.02, "bullet": 8.9, "small": 8.6, "entry": 9.2, "gap": 0.6},
+    "roomy": {"margin": 0.62, "normal": 9.8, "name": 18.0, "info": 9.5, "heading": 11.0, "section_before": 5, "line": 1.08, "bullet": 9.5, "small": 9.0, "entry": 9.8, "gap": 1.2},
+    "expanded": {"margin": 0.72, "normal": 10.3, "name": 19.0, "info": 9.9, "heading": 11.5, "section_before": 7, "line": 1.15, "bullet": 10.0, "small": 9.4, "entry": 10.3, "gap": 1.8},
+    "fill1": {"margin": 0.78, "normal": 10.6, "name": 19.5, "info": 10.1, "heading": 11.8, "section_before": 8, "line": 1.18, "bullet": 10.3, "small": 9.7, "entry": 10.5, "gap": 2.2},
+    "fill2": {"margin": 0.82, "normal": 10.9, "name": 20.0, "info": 10.4, "heading": 12.0, "section_before": 9, "line": 1.20, "bullet": 10.5, "small": 9.9, "entry": 10.7, "gap": 2.6},
+    "fill3": {"margin": 0.86, "normal": 11.1, "name": 20.3, "info": 10.6, "heading": 12.2, "section_before": 10, "line": 1.22, "bullet": 10.7, "small": 10.1, "entry": 10.9, "gap": 3.0},
+    "fill4": {"margin": 0.90, "normal": 11.3, "name": 20.6, "info": 10.8, "heading": 12.4, "section_before": 11, "line": 1.24, "bullet": 10.9, "small": 10.3, "entry": 11.1, "gap": 3.4},
+    "filled": {"margin": 0.94, "normal": 11.6, "name": 21.0, "info": 11.0, "heading": 12.6, "section_before": 12, "line": 1.26, "bullet": 11.1, "small": 10.5, "entry": 11.3, "gap": 3.8},
+    "maxfill": {"margin": 1.00, "normal": 12.0, "name": 22.0, "info": 11.4, "heading": 13.0, "section_before": 14, "line": 1.30, "bullet": 11.5, "small": 10.8, "entry": 11.8, "gap": 4.6},
+    "maxfill1": {"margin": 1.03, "normal": 12.2, "name": 22.5, "info": 11.6, "heading": 13.2, "section_before": 15, "line": 1.32, "bullet": 11.7, "small": 11.0, "entry": 12.0, "gap": 5.0},
+    "maxfill2": {"margin": 1.06, "normal": 12.4, "name": 23.0, "info": 11.8, "heading": 13.4, "section_before": 16, "line": 1.34, "bullet": 11.9, "small": 11.2, "entry": 12.2, "gap": 5.4},
+    "maxfill3": {"margin": 1.08, "normal": 12.6, "name": 23.5, "info": 12.0, "heading": 13.6, "section_before": 17, "line": 1.36, "bullet": 12.1, "small": 11.4, "entry": 12.4, "gap": 5.8},
+}
+
+
+def lv(compactness: str, key: str) -> float:
+    return float(LAYOUTS[compactness][key])
+
 
 def set_run_font(run, size_pt: float | None = None, bold: bool | None = None, color: RGBColor | None = None):
     run.font.name = FONT_CN
@@ -62,9 +83,9 @@ def configure_doc(doc: Document, compactness: str):
     section.start_type = WD_SECTION.NEW_PAGE
     section.page_width = Inches(8.27)  # A4
     section.page_height = Inches(11.69)
-    margin = {"normal": 0.52, "tight": 0.45, "ultra": 0.40}[compactness]
+    margin = lv(compactness, "margin")
     section.top_margin = Inches(margin)
-    section.bottom_margin = Inches(margin)
+    section.bottom_margin = Inches(min(margin, 0.44))
     section.left_margin = Inches(margin)
     section.right_margin = Inches(margin)
 
@@ -72,7 +93,7 @@ def configure_doc(doc: Document, compactness: str):
     normal = styles["Normal"]
     normal.font.name = FONT_CN
     normal._element.rPr.rFonts.set(qn("w:eastAsia"), FONT_CN)
-    normal.font.size = Pt({"normal": 9.2, "tight": 8.8, "ultra": 8.5}[compactness])
+    normal.font.size = Pt(lv(compactness, "normal"))
     normal.font.color.rgb = TEXT
 
 
@@ -96,7 +117,7 @@ def add_header(doc: Document, basics: dict[str, Any], compactness: str):
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     set_para_spacing(p, after=1 if compactness == "ultra" else 2)
     run = p.add_run(name)
-    set_run_font(run, {"normal": 17, "tight": 16, "ultra": 15.5}[compactness], True, ACCENT)
+    set_run_font(run, lv(compactness, "name"), True, ACCENT)
 
     parts = [title]
     for key in ["phone", "email", "city"]:
@@ -106,14 +127,14 @@ def add_header(doc: Document, basics: dict[str, Any], compactness: str):
     for link in basics.get("links") or []:
         if link:
             parts.append(str(link))
-    add_text_line(doc, "｜".join(parts), size={"normal": 9, "tight": 8.7, "ultra": 8.4}[compactness], align=WD_ALIGN_PARAGRAPH.CENTER, after=2)
+    add_text_line(doc, "｜".join(parts), size=lv(compactness, "info"), align=WD_ALIGN_PARAGRAPH.CENTER, after=2)
 
 
 def add_section_heading(doc: Document, title: str, compactness: str):
     p = doc.add_paragraph()
-    set_para_spacing(p, before={"normal": 3, "tight": 2, "ultra": 1}[compactness], after=1)
+    set_para_spacing(p, before=lv(compactness, "section_before"), after=1)
     run = p.add_run(title)
-    set_run_font(run, {"normal": 10.5, "tight": 10.2, "ultra": 10}[compactness], True, ACCENT)
+    set_run_font(run, lv(compactness, "heading"), True, ACCENT)
     add_bottom_border(p)
     return p
 
@@ -126,17 +147,17 @@ def add_education(doc: Document, items: list[dict[str, Any]], compactness: str):
         main_parts = [edu.get("school"), edu.get("major"), edu.get("degree"), edu.get("time")]
         line = "｜".join([str(x) for x in main_parts if x])
         if line:
-            add_text_line(doc, line, size={"normal": 9.2, "tight": 8.8, "ultra": 8.5}[compactness], bold=True, after=0)
+            add_text_line(doc, line, size=lv(compactness, "entry"), bold=True, after=0)
         details = edu.get("details") or []
         if details:
-            add_text_line(doc, "；".join([str(x) for x in details if x]), size={"normal": 8.8, "tight": 8.5, "ultra": 8.2}[compactness], after=0)
+            add_text_line(doc, "；".join([str(x) for x in details if x]), size=lv(compactness, "small"), after=0)
 
 
 IMPORTANT_PATTERN = re.compile(
     r"(\d+(?:\.\d+)?\s*(?:\+|%|％|w|W|万|千|百|小时|分钟|天|周|月|年|人|次|个|条|篇)|"
     r"\d+(?:\.\d+)?/\d+(?:\.\d+)?|"
     r"(?:TOP|Top|top)\s*\d+|"
-    r"(?:GMV|ROI|CTR|CVR|DAU|MAU|SQL|A/B|PRD|SOP|RAG|LLM|AI))"
+    r"(?:GMV|ROI|CTR|CVR|DAU|MAU|SQL|A/B|PRD|SOP|RAG|LLM|AI))(?:[。；;，,])?"
 )
 
 
@@ -155,31 +176,35 @@ def add_rich_text(paragraph, text: str, size: float, *, base_bold: bool = False,
         set_run_font(run, size, base_bold, TEXT)
 
 
+def clean_bullet_text(text: Any) -> str:
+    return re.sub(r"\s+", " ", str(text)).strip().rstrip("。.")
+
+
 def add_bullet(doc: Document, text: str, compactness: str):
     p = doc.add_paragraph(style=None)
-    set_para_spacing(p, after={"normal": 0.6, "tight": 0.3, "ultra": 0}[compactness], line={"normal": 1.02, "tight": 1.0, "ultra": 0.95}[compactness])
+    set_para_spacing(p, after=lv(compactness, "gap"), line=lv(compactness, "line"))
     pf = p.paragraph_format
     pf.left_indent = Inches(0.18)
     pf.first_line_indent = Inches(-0.10)
     run = p.add_run("• ")
-    set_run_font(run, {"normal": 8.9, "tight": 8.6, "ultra": 8.3}[compactness], False, ACCENT)
-    add_rich_text(p, str(text), {"normal": 8.9, "tight": 8.6, "ultra": 8.3}[compactness])
+    set_run_font(run, lv(compactness, "bullet"), False, ACCENT)
+    add_rich_text(p, clean_bullet_text(text), lv(compactness, "bullet"))
 
 
 def add_entry(doc: Document, entry: dict[str, Any], compactness: str):
     heading = entry.get("heading")
     if heading:
-        add_text_line(doc, str(heading), size={"normal": 9.2, "tight": 8.8, "ultra": 8.5}[compactness], bold=True, after=0)
+        add_text_line(doc, str(heading), size=lv(compactness, "entry"), bold=True, after=0)
     summary = entry.get("summary")
     if summary:
-        add_text_line(doc, str(summary), size={"normal": 8.8, "tight": 8.5, "ultra": 8.2}[compactness], after=0)
+        add_text_line(doc, str(summary), size=lv(compactness, "small"), after=0)
     for project in entry.get("projects") or []:
         name = project.get("name")
         if name:
-            add_text_line(doc, str(name), size={"normal": 8.9, "tight": 8.6, "ultra": 8.3}[compactness], bold=True, after=0)
+            add_text_line(doc, str(name), size=lv(compactness, "bullet"), bold=True, after=0)
         ps = project.get("summary")
         if ps:
-            add_text_line(doc, str(ps), size={"normal": 8.6, "tight": 8.3, "ultra": 8.1}[compactness], after=0)
+            add_text_line(doc, str(ps), size=lv(compactness, "small"), after=0)
         for bullet in project.get("bullets") or []:
             add_bullet(doc, bullet, compactness)
     for bullet in entry.get("bullets") or []:
@@ -200,7 +225,7 @@ def add_skills(doc: Document, skills: list[Any], compactness: str):
     if not skills:
         return
     add_section_heading(doc, "技能与其他", compactness)
-    size = {"normal": 8.9, "tight": 8.6, "ultra": 8.3}[compactness]
+    size = lv(compactness, "bullet")
     lines: list[str] = []
     for item in skills:
         if not item:
@@ -219,7 +244,7 @@ def add_skills(doc: Document, skills: list[Any], compactness: str):
             lines.extend(parts if len(parts) > 1 else [line])
     for line in lines:
         p = doc.add_paragraph()
-        set_para_spacing(p, after={"normal": 0.5, "tight": 0.25, "ultra": 0}[compactness], line={"normal": 1.02, "tight": 1.0, "ultra": 0.95}[compactness])
+        set_para_spacing(p, after=lv(compactness, "gap"), line=lv(compactness, "line"))
         add_rich_text(p, line, size)
 
 
@@ -233,7 +258,62 @@ def scrub_metadata(doc: Document):
     props.title = ""
 
 
+def estimate_content_lines(data: dict[str, Any]) -> int:
+    lines = 2 + max(1, len(data.get("education") or []))
+    for sec in data.get("sections") or []:
+        entries = sec.get("entries") or []
+        if entries:
+            lines += 1
+        for entry in entries:
+            lines += 1
+            if entry.get("summary"):
+                lines += max(1, len(str(entry["summary"])) // 54 + 1)
+            for project in entry.get("projects") or []:
+                if project.get("name"):
+                    lines += 1
+                if project.get("summary"):
+                    lines += max(1, len(str(project["summary"])) // 54 + 1)
+                for bullet in project.get("bullets") or []:
+                    lines += max(1, len(str(bullet)) // 48 + 1)
+            for bullet in entry.get("bullets") or []:
+                lines += max(1, len(str(bullet)) // 48 + 1)
+    skill_count = 0
+    for item in data.get("skills") or []:
+        text = str(item.get("text") or item.get("items") or item) if isinstance(item, dict) else str(item)
+        skill_count += max(1, len([p for p in re.split(r"[;；]", text) if p.strip()]))
+    if skill_count:
+        lines += 1 + skill_count
+    return lines
+
+
+def choose_compactness(data: dict[str, Any]) -> str:
+    lines = estimate_content_lines(data)
+    if lines <= 22:
+        return "maxfill2"
+    if lines <= 25:
+        return "maxfill"
+    if lines <= 28:
+        return "fill4"
+    if lines <= 31:
+        return "fill3"
+    if lines <= 34:
+        return "fill2"
+    if lines <= 37:
+        return "fill1"
+    if lines <= 42:
+        return "expanded"
+    if lines <= 50:
+        return "roomy"
+    if lines <= 62:
+        return "normal"
+    if lines <= 76:
+        return "tight"
+    return "ultra"
+
+
 def build(data: dict[str, Any], output: Path, compactness: str):
+    if compactness == "auto":
+        compactness = choose_compactness(data)
     doc = Document()
     configure_doc(doc, compactness)
     add_header(doc, data.get("basics") or {}, compactness)
@@ -243,18 +323,19 @@ def build(data: dict[str, Any], output: Path, compactness: str):
     scrub_metadata(doc)
     output.parent.mkdir(parents=True, exist_ok=True)
     doc.save(output)
+    return compactness
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input_json", type=Path)
     parser.add_argument("output_docx", type=Path)
-    parser.add_argument("--compactness", choices=["normal", "tight", "ultra"], default="tight")
+    parser.add_argument("--compactness", choices=["auto", *LAYOUTS.keys()], default="auto")
     args = parser.parse_args()
 
     data = json.loads(args.input_json.read_text(encoding="utf-8"))
-    build(data, args.output_docx, args.compactness)
-    print(f"Wrote {args.output_docx}")
+    compactness = build(data, args.output_docx, args.compactness)
+    print(f"Wrote {args.output_docx} compactness={compactness}")
 
 
 if __name__ == "__main__":

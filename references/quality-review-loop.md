@@ -9,7 +9,7 @@ A resume is deliverable only when it passes all applicable gates:
 1. **Truth gate**: no invented company, school, role, project, award, tool, or exact metric.
 2. **PM relevance gate**: each major experience has product-manager evidence: user/market/业务 insight, requirement analysis, prototype/PRD, data analysis, project coordination, launch, or review.
 3. **Structure gate**: header, education, experience/project sections, and skills are clear; no dense paragraphs or broken section order.
-4. **Density gate**: enough real content is used. A normal one-page junior PM resume should have about 12-18 bullets; sparse resumes should restore real details before changing layout. Do not replace specific source details with empty generic phrases.
+4. **Density gate**: enough real content is used. A normal one-page junior PM resume should have about 12-18 bullets or bullet-equivalent lines; sparse resumes should restore real details before changing layout. Do not replace specific source details with empty generic phrases.
 5. **Layout gate**: final DOCX is one page; bottom blank space is no more than about 3 lines when enough source content exists.
 6. **Readability gate**: text remains readable; do not use tiny font, hidden text, negative spacing, or cramped layout to pass page constraints.
 7. **Delivery gate**: final output includes DOCX and, when requested/possible, a short summary of limitations or unresolved checks.
@@ -43,6 +43,7 @@ Check the JSON before or after DOCX generation:
 - Internship wording uses conservative verbs unless user evidence supports stronger ownership.
 - Metrics are provided, derived, or softly phrased; no fake exact numbers.
 - Skills are compact and relevant to PM roles.
+- If total experience/project bullets are under 10, confirm the source is genuinely sparse; otherwise go back to the extracted resume text and restore PM-relevant details before generating files.
 
 ## Layout review checklist
 
@@ -67,7 +68,8 @@ Do **not** stop just because the page count is 1. If the bottom blank area is to
 5. Expand skills into 2 compact lines grouped by PM method / tools / data / AI or technical literacy.
 6. Add relevant coursework, awards, portfolio, or campus project only if present in the source.
 7. Split semicolon-packed skills into multiple category rows instead of one long line.
-7. Loosen layout moderately: normal compactness, slightly larger body font, natural line spacing, slightly wider vertical margins.
+7. Use the generation scripts' default `--compactness auto` mode so sparse-but-factual resumes choose a roomier one-page layout.
+8. Loosen layout only after content expansion; do not force `tight`/`ultra` on sparse resumes.
 
 Stop expanding before claims become speculative. If source content is genuinely insufficient, keep whitespace and note the limitation.
 
@@ -118,7 +120,7 @@ For batch tests with no user available:
 - Record issues in `reports/summary.md`.
 - If bottom whitespace fails because source content is sparse, mark `CHECK: source content likely insufficient` rather than inventing filler.
 - If many files fail the same gate, report it as a skill improvement opportunity.
-- For batch Word+PDF deliverables, prefer generating DOCX and PDF directly from the same structured JSON (`scripts/build_pm_resume_docx.py` + `scripts/build_pm_resume_pdf.py`) so Word never opens Desktop/Documents files.
+- For batch Word+PDF deliverables, prefer generating DOCX and PDF directly from the same structured JSON (`scripts/build_pm_resume_docx.py` + `scripts/build_pm_resume_pdf.py`) with default auto-fit mode, so Word never opens Desktop/Documents files and sparse pages do not leave large bottom blanks.
 - Use `scripts/export_docx_to_pdf.py` only when an exact DOCX-to-PDF render is required; it avoids repeated Microsoft Word permission prompts by using headless conversion first and temporary Word copies as fallback.
 
 ## Key data emphasis

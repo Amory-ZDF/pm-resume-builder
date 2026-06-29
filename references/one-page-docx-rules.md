@@ -22,6 +22,8 @@ Default one-page budget:
 - Campus experience: 0-1 compact entry, only if it strengthens PM evidence.
 - Skills: 1-2 compact lines.
 
+For normal junior/intern PM resumes, do not stop at 5-8 bullets if the source has usable material. Target 12-18 bullets or bullet-equivalent lines across internships, work, projects, campus PM evidence, and skills. If the source supports fewer than 10 high-signal lines, mark it as source-sparse instead of pretending the page is naturally full.
+
 For internship/campus resumes:
 - Internships: 40-50% of page.
 - Projects: 25-35%.
@@ -42,6 +44,8 @@ When the resume is one page but leaves more than about 3 blank lines at the bott
 4. Expand skills into 2-4 compact category rows grouped by PM methods / tools / data / AI or technical literacy; do not use one semicolon-heavy long row.
 5. Add relevant coursework, awards, portfolio, or campus project only if already present in the source.
 6. Loosen layout moderately: normal compactness, slightly larger body font, natural line spacing, or slightly larger vertical margins.
+
+If the content is still one page and sparse after restoring source-supported details, use the build scripts' default `--compactness auto` mode. Auto mode may choose a roomier layout for source-sparse resumes; do not override it with `tight` or `ultra` unless the page overflows.
 
 Do not invent filler just to fill the page. If the source is genuinely too thin, keep the whitespace and state the limitation.
 
@@ -78,7 +82,7 @@ When running batch tests, keep internal artifacts separate from user-facing deli
 
 ## PDF export without repeated Word permission prompts
 
-For batch tests or user-facing Word+PDF deliverables generated from structured JSON, prefer `scripts/build_pm_resume_pdf.py` and `scripts/build_pm_resume_docx.py` from the same JSON. This avoids Microsoft Word automation entirely and prevents repeated Desktop/Documents permission prompts.
+For batch tests or user-facing Word+PDF deliverables generated from structured JSON, prefer `scripts/build_pm_resume_pdf.py` and `scripts/build_pm_resume_docx.py` from the same JSON. Keep their default `--compactness auto` mode so sparse resumes use a page-fill layout instead of leaving a large bottom blank area. This avoids Microsoft Word automation entirely and prevents repeated Desktop/Documents permission prompts.
 
 If an exact DOCX-to-PDF rendering is required, use `scripts/export_docx_to_pdf.py` instead of hand-written AppleScript. The script first tries LibreOffice/soffice headless. If it must use Microsoft Word on macOS, it copies DOCX files to a temporary directory, exports PDFs there in one Word session, and then copies PDFs back to the output directory. This avoids repeatedly asking Microsoft Word for Desktop/Documents file access.
 

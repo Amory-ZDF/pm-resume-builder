@@ -66,13 +66,14 @@ Hard constraints:
 
 9. **Fit to one page**
    Read `references/one-page-docx-rules.md`. Use content budgets before creating DOCX. Fit means both: exactly one page and no excessive bottom whitespace when enough factual source content exists.
+   Do not solve a sparse page only by switching layout. First restore source-supported details and target a normal junior PM resume density; then use the generation scripts' default `--compactness auto` to choose an appropriate page-fill layout.
 
 10. **Run the quality review loop**
    Read `references/quality-review-loop.md` before final delivery. Generate DOCX, review truth/PM relevance/structure/density/layout, then choose: deliver, expand and rewrite, compress and rewrite, or ask the user. Iterate up to 3 times before delivering the best version with a limitation note.
 
 11. **Generate and verify DOCX**
-   - Prefer using `scripts/build_pm_resume_docx.py` with structured JSON.
-   - If the user requests PDF deliverables during batch tests, prefer `scripts/build_pm_resume_pdf.py` from the same JSON to avoid Microsoft Word file-access prompts.
+   - Prefer using `scripts/build_pm_resume_docx.py` with structured JSON. Keep its default `--compactness auto`; do not force `tight`/`ultra` unless the document overflows.
+   - If the user requests PDF deliverables during batch tests, prefer `scripts/build_pm_resume_pdf.py` from the same JSON and keep its default auto-fit mode to avoid Microsoft Word file-access prompts and excessive bottom whitespace.
    - Use `scripts/check_docx_layout.py` or the Documents skill render workflow to verify page count and bottom whitespace. If an exact DOCX-to-PDF rendering is required, use `scripts/export_docx_to_pdf.py` so batch exports use headless conversion first and Microsoft Word only through temporary files.
    - Do not deliver solely because page count is 1. If bottom blank area is too large, restore/expand real PM-relevant content or loosen layout, then regenerate and recheck.
    - Iterate until the latest checked version passes: one page, no clipping/overlap, bottom blank area within the 3-line rule when source content allows.
@@ -88,8 +89,8 @@ Hard constraints:
 - `references/one-page-docx-rules.md`: one-page budgets, expansion/compression order, and Word layout constraints.
 - `references/quality-review-loop.md`: internal review loop for truth, PM relevance, density, layout, rewrite decisions, and final delivery gates.
 - `scripts/extract_resume_input.py`: extract plain text from `.docx`, `.pdf`, `.md`, or `.txt` resume/JD inputs.
-- `scripts/build_pm_resume_docx.py`: build a compact Chinese PM resume DOCX from JSON.
-- `scripts/build_pm_resume_pdf.py`: build a matching compact Chinese PM resume PDF directly from JSON without Word automation.
+- `scripts/build_pm_resume_docx.py`: build an adaptive one-page Chinese PM resume DOCX from JSON.
+- `scripts/build_pm_resume_pdf.py`: build a matching adaptive Chinese PM resume PDF directly from JSON without Word automation.
 - `scripts/check_docx_layout.py`: convert DOCX to PDF and check page count plus bottom whitespace.
 - `scripts/export_docx_to_pdf.py`: batch export DOCX to PDF while minimizing macOS Word file-access prompts by using temporary copies.
 
