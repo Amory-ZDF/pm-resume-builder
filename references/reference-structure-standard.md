@@ -4,7 +4,7 @@ This standard is derived from a private one-page Chinese PM resume sample. Do no
 
 ## Layout pattern
 
-- Use A4 portrait with approximately 0.5 inch margins on all sides.
+- Use A4 portrait with the skill's fixed Word template margins; do not change margins to force fit.
 - Use a text-only layout; avoid tables, icons, photos, sidebars, and heavy color blocks.
 - Center the candidate name at the top, then center one compact contact/intention line below it.
 - Use compact section headings with bold text and a restrained divider or spacing cue.

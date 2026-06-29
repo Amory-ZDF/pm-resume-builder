@@ -4,12 +4,14 @@
 
 Use a clean Internet-company resume style:
 - A4 portrait.
-- Margins around 0.5 inch; tighten only when necessary.
+- Margins fixed at about 0.45 inch.
 - Chinese font: Microsoft YaHei / PingFang SC / SimSun fallback.
-- Name: 16-18 pt bold.
-- Section headings: 10.5-11 pt bold with a thin divider.
-- Body: 8.8-9.5 pt, readable line spacing.
-- Bullets: compact hanging indent; no decorative icons, photos, sidebars, or heavy tables.
+- Name: 16 pt bold.
+- Section headings: about 10.2 pt bold with a thin divider.
+- Body/bullets: about 8.6 pt with consistent line spacing.
+- Bullets: compact hanging indent; no decorative icons, photos, sidebars, heavy tables, or one-off spacing hacks.
+
+Treat this as a fixed template. Do not change fonts, margins, line spacing, or section spacing to make a resume fit. Use content edits instead.
 
 ## Content budget
 
@@ -43,9 +45,7 @@ When the resume is one page but leaves more than about 3 blank lines at the bott
 3. Add source-supported methods: user research,竞品分析,需求分析,PRD,原型,流程图,数据分析,复盘.
 4. Expand skills into 2-4 compact category rows grouped by PM methods / tools / data / AI or technical literacy; do not use one semicolon-heavy long row.
 5. Add relevant coursework, awards, portfolio, or campus project only if already present in the source.
-6. Loosen layout moderately: normal compactness, slightly larger body font, natural line spacing, or slightly larger vertical margins.
-
-If the content is still one page and sparse after restoring source-supported details, use the build scripts' default `--compactness auto` mode. Auto mode may choose a roomier layout for source-sparse resumes; do not override it with `tight` or `ultra` unless the page overflows.
+6. If still sparse, ask for more facts or clearly mark the source as thin. Do **not** enlarge fonts, margins, or line spacing to fill the page.
 
 Do not invent filler just to fill the page. If the source is genuinely too thin, keep the whitespace and state the limitation.
 
@@ -57,24 +57,33 @@ When over one page:
 3. Merge two small bullets into one concise bullet.
 4. Cut older/less relevant internship or project details.
 5. Reduce project subtitles before reducing readability.
-6. Tighten layout: smaller after-spacing, smaller body font down to about 8.5 pt, narrower margins down to about 0.4 inch.
-7. If still over, tell the user which tradeoff is required.
+6. If still over, remove the next-lowest-priority source-supported detail or ask the user which experience can be cut. Do **not** shrink fonts, margins, or line spacing to hide overflow.
 
 Do not solve overflow by making unreadably tiny text, using negative spacing, hiding text, or removing section names.
 
 ## Bottom whitespace rule
 
-The final page should not end with more than about 3 blank lines. Page count alone is not enough. If the resume has enough real content, fill the page by restoring relevant bullets, adding a source-supported context sentence, expanding compact skills, or slightly loosening spacing. If the candidate truly has little content, do not invent filler; mention that the source material is insufficient to naturally fill a full page.
+The final page should not end with more than about 3 blank lines. Page count alone is not enough. If the resume has enough real content, fill the page by restoring relevant bullets, adding a source-supported context sentence, or expanding compact skills. Keep fonts, margins, and line spacing fixed. If the candidate truly has little content, do not invent filler; mention that the source material is insufficient to naturally fill a full page.
 
 ## Verification
 
 A final answer should only claim one-page success after one of these checks:
-- DOCX rendered to PDF/PNG and inspected; or
-- `scripts/check_docx_layout.py` reports 1 page and acceptable bottom whitespace.
+- DOCX itself rendered to PDF/PNG and inspected; or
+- `scripts/check_docx_layout.py` reports 1 page and acceptable bottom whitespace for the DOCX file.
 
 If the check returns 1 page but unacceptable bottom whitespace, run the expansion sequence and regenerate. If the check returns more than 1 page, run the compression sequence and regenerate.
 
 If rendering tools are unavailable, disclose that visual verification could not be completed.
+
+## Mandatory Word-format loop
+
+1. Generate DOCX with the fixed template.
+2. Render/check that DOCX with `scripts/check_docx_layout.py` or the Documents skill render workflow.
+3. If `pages > 1`, reduce content: delete weak bullets, merge repeated bullets, shorten summaries, remove low-priority sections.
+4. If `pages == 1` but bottom whitespace is too large, add content: restore source-supported bullets, add concise context, split strong multi-scope entries, expand skills from source.
+5. Regenerate the DOCX and repeat. Do not change the template.
+
+Do not use these as proof of Word pagination: direct JSON-to-PDF output, estimated line counts, `docProps/app.xml` page metadata, or visual guessing from Markdown. They may help diagnose content density, but the final gate is rendering/checking the DOCX itself.
 
 ## Deliverable hygiene for batch tests
 
@@ -82,7 +91,7 @@ When running batch tests, keep internal artifacts separate from user-facing deli
 
 ## PDF export without repeated Word permission prompts
 
-For batch tests or user-facing Word+PDF deliverables generated from structured JSON, prefer `scripts/build_pm_resume_pdf.py` and `scripts/build_pm_resume_docx.py` from the same JSON. Keep their default `--compactness auto` mode so sparse resumes use a page-fill layout instead of leaving a large bottom blank area. This avoids Microsoft Word automation entirely and prevents repeated Desktop/Documents permission prompts.
+For batch tests or user-facing Word+PDF deliverables, generate DOCX with `scripts/build_pm_resume_docx.py`, then verify that DOCX with `scripts/check_docx_layout.py`. If PDF is needed, export the verified DOCX with `scripts/export_docx_to_pdf.py`; use `scripts/build_pm_resume_pdf.py` only as a convenience fallback, not as Word pagination proof.
 
 If an exact DOCX-to-PDF rendering is required, use `scripts/export_docx_to_pdf.py` instead of hand-written AppleScript. The script first tries LibreOffice/soffice headless. If it must use Microsoft Word on macOS, it copies DOCX files to a temporary directory, exports PDFs there in one Word session, and then copies PDFs back to the output directory. This avoids repeatedly asking Microsoft Word for Desktop/Documents file access.
 

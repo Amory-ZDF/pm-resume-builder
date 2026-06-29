@@ -66,16 +66,16 @@ Hard constraints:
 
 9. **Fit to one page**
    Read `references/one-page-docx-rules.md`. Use content budgets before creating DOCX. Fit means both: exactly one page and no excessive bottom whitespace when enough factual source content exists.
-   Do not solve a sparse page only by switching layout. First restore source-supported details and target a normal junior PM resume density; then use the generation scripts' default `--compactness auto` to choose an appropriate page-fill layout.
+   Do not solve sparse pages or overflow by changing font size, margins, or line spacing. Keep the fixed Word style and adjust content: expand, restore, compress, merge, or delete source-supported content.
 
 10. **Run the quality review loop**
    Read `references/quality-review-loop.md` before final delivery. Generate DOCX, review truth/PM relevance/structure/density/layout, then choose: deliver, expand and rewrite, compress and rewrite, or ask the user. Iterate up to 3 times before delivering the best version with a limitation note.
 
 11. **Generate and verify DOCX**
-   - Prefer using `scripts/build_pm_resume_docx.py` with structured JSON. Keep its default `--compactness auto`; do not force `tight`/`ultra` unless the document overflows.
-   - If the user requests PDF deliverables during batch tests, prefer `scripts/build_pm_resume_pdf.py` from the same JSON and keep its default auto-fit mode to avoid Microsoft Word file-access prompts and excessive bottom whitespace.
-   - Use `scripts/check_docx_layout.py` or the Documents skill render workflow to verify page count and bottom whitespace. If an exact DOCX-to-PDF rendering is required, use `scripts/export_docx_to_pdf.py` so batch exports use headless conversion first and Microsoft Word only through temporary files.
-   - Do not deliver solely because page count is 1. If bottom blank area is too large, restore/expand real PM-relevant content or loosen layout, then regenerate and recheck.
+   - Prefer using `scripts/build_pm_resume_docx.py` with structured JSON. The script uses a fixed Word style; do not pass layout/compactness changes to force fit.
+   - Verify the generated DOCX with `scripts/check_docx_layout.py` or the Documents skill render workflow before delivery. This check must render the DOCX itself; a PDF generated directly from JSON is not proof that the Word file is one page.
+   - If the DOCX is over one page, compress content and regenerate. If bottom blank area is too large, restore/expand real PM-relevant content and regenerate. Do not change font size, margins, or line spacing to solve either problem.
+   - If the user requests PDF deliverables during batch tests, prefer `scripts/export_docx_to_pdf.py` after the DOCX passes layout checks, or `scripts/build_pm_resume_pdf.py` only as a convenience copy with a note that Word pagination was checked separately.
    - Iterate until the latest checked version passes: one page, no clipping/overlap, bottom blank area within the 3-line rule when source content allows.
 
 ## Resource routing
@@ -89,9 +89,9 @@ Hard constraints:
 - `references/one-page-docx-rules.md`: one-page budgets, expansion/compression order, and Word layout constraints.
 - `references/quality-review-loop.md`: internal review loop for truth, PM relevance, density, layout, rewrite decisions, and final delivery gates.
 - `scripts/extract_resume_input.py`: extract plain text from `.docx`, `.pdf`, `.md`, or `.txt` resume/JD inputs.
-- `scripts/build_pm_resume_docx.py`: build an adaptive one-page Chinese PM resume DOCX from JSON.
-- `scripts/build_pm_resume_pdf.py`: build a matching adaptive Chinese PM resume PDF directly from JSON without Word automation.
-- `scripts/check_docx_layout.py`: convert DOCX to PDF and check page count plus bottom whitespace.
+- `scripts/build_pm_resume_docx.py`: build a fixed-style Chinese PM resume DOCX from JSON.
+- `scripts/build_pm_resume_pdf.py`: build a fixed-style Chinese PM resume PDF directly from JSON; do not use it as Word pagination proof.
+- `scripts/check_docx_layout.py`: render the DOCX to PDF and check actual Word/DOCX page count plus bottom whitespace.
 - `scripts/export_docx_to_pdf.py`: batch export DOCX to PDF while minimizing macOS Word file-access prompts by using temporary copies.
 
 ## DOCX generation contract
