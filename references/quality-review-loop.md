@@ -48,9 +48,10 @@ Check the JSON before or after DOCX generation:
 
 ## Layout review checklist
 
-Use a render of the DOCX itself, or `scripts/check_docx_layout.py`, when available:
+Use `scripts/check_docx_layout.py --method word` when Microsoft Word is available, or a render of the DOCX itself otherwise:
 
 - Page count is exactly 1 for the final DOCX resume. Do not infer this from a separately generated PDF.
+- `bottom_blank_lines` is no more than 3 when source content is sufficient. This must come from the last visible text position in the actual Word page, not from estimated line count.
 - No clipped text, overlapping lines, broken glyphs, broken bullets, or missing Chinese fonts.
 - Bottom whitespace is within about 3 lines when source content is sufficient.
 - Section spacing is visually balanced.

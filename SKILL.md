@@ -73,7 +73,7 @@ Hard constraints:
 
 11. **Generate and verify DOCX**
    - Prefer using `scripts/build_pm_resume_docx.py` with structured JSON. The script uses a fixed Word style; do not pass layout/compactness changes to force fit.
-   - Verify the generated DOCX with `scripts/check_docx_layout.py` or the Documents skill render workflow before delivery. This check must render the DOCX itself; a PDF generated directly from JSON is not proof that the Word file is one page.
+   - Verify the generated DOCX with `scripts/check_docx_layout.py` or the Documents skill render workflow before delivery. On macOS, the script should use Microsoft Word geometry to measure actual page count and bottom whitespace from a temporary DOCX copy; a PDF generated directly from JSON is not proof that the Word file is one page.
    - If the DOCX is over one page, compress content and regenerate. If bottom blank area is too large, restore/expand real PM-relevant content and regenerate. Do not change font size, margins, or line spacing to solve either problem.
    - If the user requests PDF deliverables during batch tests, prefer `scripts/export_docx_to_pdf.py` after the DOCX passes layout checks, or `scripts/build_pm_resume_pdf.py` only as a convenience copy with a note that Word pagination was checked separately.
    - Iterate until the latest checked version passes: one page, no clipping/overlap, bottom blank area within the 3-line rule when source content allows.
@@ -91,7 +91,7 @@ Hard constraints:
 - `scripts/extract_resume_input.py`: extract plain text from `.docx`, `.pdf`, `.md`, or `.txt` resume/JD inputs.
 - `scripts/build_pm_resume_docx.py`: build a fixed-style Chinese PM resume DOCX from JSON.
 - `scripts/build_pm_resume_pdf.py`: build a fixed-style Chinese PM resume PDF directly from JSON; do not use it as Word pagination proof.
-- `scripts/check_docx_layout.py`: render the DOCX to PDF and check actual Word/DOCX page count plus bottom whitespace.
+- `scripts/check_docx_layout.py`: check actual Word/DOCX page count plus bottom whitespace; prefers Microsoft Word geometry and falls back to temporary PDF rendering when needed.
 - `scripts/export_docx_to_pdf.py`: batch export DOCX to PDF while minimizing macOS Word file-access prompts by using temporary copies.
 
 ## DOCX generation contract

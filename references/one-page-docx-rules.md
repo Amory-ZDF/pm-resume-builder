@@ -68,6 +68,7 @@ The final page should not end with more than about 3 blank lines. Page count alo
 ## Verification
 
 A final answer should only claim one-page success after one of these checks:
+- `scripts/check_docx_layout.py --method word` reports 1 page and acceptable bottom whitespace from Microsoft Word geometry; or
 - DOCX itself rendered to PDF/PNG and inspected; or
 - `scripts/check_docx_layout.py` reports 1 page and acceptable bottom whitespace for the DOCX file.
 
@@ -75,12 +76,14 @@ If the check returns 1 page but unacceptable bottom whitespace, run the expansio
 
 If rendering tools are unavailable, disclose that visual verification could not be completed.
 
+For bottom whitespace, do not rely on Word line count alone. The check must measure the last visible text position on the final Word page, subtract it from the fixed template's usable bottom boundary, and convert the remaining space to approximate body lines. Treat `bottom_blank_lines > 3` as `EXPAND_AND_REWRITE` unless the source is genuinely sparse.
+
 ## Mandatory Word-format loop
 
 1. Generate DOCX with the fixed template.
-2. Render/check that DOCX with `scripts/check_docx_layout.py` or the Documents skill render workflow.
+2. Check that DOCX with `scripts/check_docx_layout.py --method word` when Microsoft Word is available, or the Documents skill render workflow otherwise.
 3. If `pages > 1`, reduce content: delete weak bullets, merge repeated bullets, shorten summaries, remove low-priority sections.
-4. If `pages == 1` but bottom whitespace is too large, add content: restore source-supported bullets, add concise context, split strong multi-scope entries, expand skills from source.
+4. If `pages == 1` but `bottom_blank_lines > 3`, add content: restore source-supported bullets, add concise context, split strong multi-scope entries, expand skills from source.
 5. Regenerate the DOCX and repeat. Do not change the template.
 
 Do not use these as proof of Word pagination: direct JSON-to-PDF output, estimated line counts, `docProps/app.xml` page metadata, or visual guessing from Markdown. They may help diagnose content density, but the final gate is rendering/checking the DOCX itself.
