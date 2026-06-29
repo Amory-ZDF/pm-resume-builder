@@ -20,22 +20,22 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Inches, Pt, RGBColor
 
-FONT_CN = "Microsoft YaHei"
-FONT_FALLBACK = "PingFang SC"
+FONT_CN = "楷体"
+FONT_FALLBACK = "Kaiti SC"
 ACCENT = RGBColor(31, 78, 121)
 TEXT = RGBColor(30, 30, 30)
 
 # Fixed Internet-company style. Do not change these values to force fit.
 PAGE_MARGIN_IN = 0.45
 NAME_PT = 16.0
-INFO_PT = 8.7
-SECTION_PT = 10.2
-ENTRY_PT = 8.8
-BODY_PT = 8.6
-SMALL_PT = 8.3
+INFO_PT = 9.5
+SECTION_PT = 10.5
+ENTRY_PT = 9.5
+BODY_PT = 9.5
+SMALL_PT = 9.5
 LINE_SPACING = 1.0
 BULLET_AFTER_PT = 0.3
-SECTION_BEFORE_PT = 2.0
+SECTION_BEFORE_PT = 0.0
 
 IMPORTANT_PATTERN = re.compile(
     r"(\d+(?:\.\d+)?\s*(?:\+|%|％|w|W|万|千|百|小时|分钟|天|周|月|年|人|次|个|条|篇)|"
@@ -96,9 +96,10 @@ def configure_doc(doc: Document):
     normal._element.rPr.rFonts.set(qn("w:eastAsia"), FONT_CN)
     normal.font.size = Pt(BODY_PT)
     normal.font.color.rgb = TEXT
+    doc._pm_section_count = 0
 
 
-def add_rich_text(paragraph, text: str, size: float, *, base_bold: bool = False, emphasize_metrics: bool = True):
+def add_rich_text(paragraph, text: str, size: float = BODY_PT, *, base_bold: bool = False, emphasize_metrics: bool = True):
     pos = 0
     text = str(text)
     for match in IMPORTANT_PATTERN.finditer(text) if emphasize_metrics else []:
@@ -143,11 +144,16 @@ def add_header(doc: Document, basics: dict[str, Any]):
 
 
 def add_section_heading(doc: Document, title: str):
+    section_count = getattr(doc, "_pm_section_count", 0)
+    if section_count > 0:
+        gap = doc.add_paragraph()
+        set_para_spacing(gap, before=0, after=0, line=LINE_SPACING)
     p = doc.add_paragraph()
     set_para_spacing(p, before=SECTION_BEFORE_PT, after=1)
     run = p.add_run(title)
     set_run_font(run, SECTION_PT, True, ACCENT)
     add_bottom_border(p)
+    doc._pm_section_count = section_count + 1
 
 
 def add_education(doc: Document, items: list[dict[str, Any]]):

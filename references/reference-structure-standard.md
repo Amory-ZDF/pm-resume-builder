@@ -8,9 +8,11 @@ This standard is derived from a private one-page Chinese PM resume sample. Do no
 - Use a text-only layout; avoid tables, icons, photos, sidebars, and heavy color blocks.
 - Center the candidate name at the top, then center one compact contact/intention line below it.
 - Use compact section headings with bold text and a restrained divider or spacing cue.
+- Use 楷体 for generated Word text; body text is 9.5 pt and major section headings are 10.5 pt.
+- Insert one blank line before each major section heading after the first heading. Do not insert an extra blank line before the first `教育背景` heading.
 - Use bold entry headings for school/company/project/organization lines.
 - Use bullet paragraphs for concrete actions and results.
-- Keep blank paragraphs sparse; use no more than one visual break between major sections.
+- Keep blank paragraphs sparse; use exactly one visual break between major sections and none before the first section.
 
 ## Recommended section sequence
 

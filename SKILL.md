@@ -74,7 +74,7 @@ Hard constraints:
    Read `references/quality-review-loop.md` before final delivery. Generate DOCX, review truth/PM relevance/structure/density/layout, then choose: deliver, expand and rewrite, compress and rewrite, or ask the user. Iterate up to 3 times before delivering the best version with a limitation note.
 
 11. **Generate and verify DOCX**
-   - Prefer using `scripts/build_pm_resume_docx.py` with structured JSON. The script uses a fixed Word style; do not pass layout/compactness changes to force fit.
+   - Prefer using `scripts/build_pm_resume_docx.py` with structured JSON. The script uses a fixed Word style: 楷体, body/contact/entry 9.5 pt, major headings 10.5 pt, and one blank line before every major section after the first. Do not pass layout/compactness changes to force fit.
    - Before generating DOCX, run `scripts/check_resume_json.py` on structured JSON to catch unlabeled bullets, entries with more than 4 bullets, and filler skill/ability lines.
    - Verify the generated DOCX with `scripts/check_docx_layout.py` or the Documents skill render workflow before delivery. On macOS, the script should use Microsoft Word geometry to measure actual page count and bottom whitespace from a temporary DOCX copy; a PDF generated directly from JSON is not proof that the Word file is one page.
    - If the DOCX is over one page, compress content and regenerate. If bottom blank area is too large, restore/expand real PM-relevant content inside existing work/internship/project bullets and regenerate. Do not add a filler skills row or extra “能力补充” section; do not change font size, margins, or line spacing to solve either problem.

@@ -5,11 +5,12 @@
 Use a clean Internet-company resume style:
 - A4 portrait.
 - Margins fixed at about 0.45 inch.
-- Chinese font: Microsoft YaHei / PingFang SC / SimSun fallback.
+- Chinese font: 楷体 / Kaiti SC fallback.
 - Name: 16 pt bold.
-- Section headings: about 10.2 pt bold with a thin divider.
-- Body/bullets: about 8.6 pt with consistent line spacing.
+- Section headings: 10.5 pt bold with a thin divider.
+- Body/bullets/contact/entry text: 9.5 pt with consistent line spacing.
 - Bullets: compact hanging indent; no decorative icons, photos, sidebars, heavy tables, or one-off spacing hacks.
+- Add one blank line before every major section heading except the first section heading, normally `教育背景`.
 
 Treat this as a fixed template. Do not change fonts, margins, line spacing, or section spacing to make a resume fit. Use content edits instead.
 
