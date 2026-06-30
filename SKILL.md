@@ -64,7 +64,7 @@ Hard constraints:
    Read `references/honesty-guardrails.md` whenever polishing weak, vague, internship, or metric-light experience. Escalate wording only when evidence supports it. Mark assumptions for user confirmation instead of hiding them.
 
 8. **Tailor to JD if provided**
-   Read `references/jd-tailoring.md`. Extract JD keywords, map them to real evidence, then reorder and rewrite content. Never add unsupported domain experience just because the JD asks for it.
+   Read `references/jd-tailoring.md`. Extract JD keywords, map them to real evidence, then reorder and rewrite content. Never add unsupported domain experience just because the JD asks for it. When the task includes a target JD, include the fixed final response block `简历匹配度`; do not score from-scratch resume writing or general resume polishing tasks without a JD.
 
 9. **Fit to one page**
    Read `references/one-page-docx-rules.md`. Use content budgets before creating DOCX. Fit means both: exactly one page and no excessive bottom whitespace when enough factual source content exists.

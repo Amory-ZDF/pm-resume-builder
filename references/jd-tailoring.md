@@ -35,6 +35,36 @@ Send this analysis to the user and ask for confirmation or correction. Only rewr
    - Do not make internship scope look like senior PM ownership.
    - If tailoring requires assumptions, list them for user confirmation before final DOCX when practical.
 
+5. Score JD match only for JD-tailoring tasks:
+   - Do not score from-scratch resume writing or general resume polishing tasks without a JD.
+   - After the final resume is generated, calculate and include `简历匹配度` in the final user response. Do not write the score into the resume DOCX unless the user explicitly asks.
+
+## 简历匹配度评分
+
+Use this score only when the user provides a target JD. The score measures resume-JD fit, not general resume quality.
+
+1. Use the confirmed JD tag/capability analysis as the scoring basis.
+2. Select 3-6 core JD capability points and assign weights that sum to 100. Weight by JD importance, mainly from responsibilities and requirements.
+3. For each capability, rate resume evidence strength from 0-4:
+   - 0: no relevant evidence.
+   - 1: keyword only; no concrete project/action.
+   - 2: transferable or adjacent evidence, but not directly matching the JD.
+   - 3: direct project/action/deliverable evidence.
+   - 4: direct evidence with method, deliverable, and source-supported result/metric or core tool.
+4. Calculate each capability score as `capability_weight × evidence_strength / 4`.
+5. Sum all capability scores and round to the nearest integer. Do not apply score caps or add resume-quality factors such as layout, aesthetics, bullet format, or one-page fit.
+
+Final response format for JD-tailoring tasks:
+
+```text
+简历匹配度：X/100
+说明：该评分仅针对简历和岗位的匹配度，与简历质量无关。
+匹配依据：
+- 高匹配：...
+- 部分匹配：...
+- 待补强：...
+```
+
 ## Keyword integration
 
 Use JD keywords only when supported by facts. Prefer natural phrasing:
